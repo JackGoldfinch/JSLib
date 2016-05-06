@@ -11,6 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_Export.hpp; sourceTree = "<group>"; };
 		8FE55E631CDC8D8500321D58 /* libJSLib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libJSLib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE55E781CDC8E1A00321D58 /* JSLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSLib.cpp; sourceTree = "<group>"; };
 		8FE55E791CDC8E1A00321D58 /* JSLib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLib.hpp; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		8FE55E771CDC8E0100321D58 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */,
 				8FE55E781CDC8E1A00321D58 /* JSLib.cpp */,
 				8FE55E791CDC8E1A00321D58 /* JSLib.hpp */,
 				8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */,
@@ -264,6 +266,7 @@
 				8FE55E701CDC8D8500321D58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
