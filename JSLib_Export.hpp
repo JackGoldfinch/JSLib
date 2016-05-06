@@ -4,11 +4,14 @@
 
 #ifdef _WINDOWS
 
+#pragma warning (disable: 4068) // Unknown pragma
+#pragma warning (disable: 4251) // DLL interface required
+
 #ifdef __JSLIB_EXPORTING
 #define JSLIB_EXPORT __declspec(dllexport)
 #else
 #define JSLIB_EXPORT __declspec(dllimport)
-#endif // #ofdef __JSLIB_EXPORTING
+#endif // #ifdef __JSLIB_EXPORTING
 
 #else
 

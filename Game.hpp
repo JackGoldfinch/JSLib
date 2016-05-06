@@ -12,6 +12,7 @@
 
 #include "JSLib_Export.hpp"
 
+#include <string>
 #include <iostream>
 #include <memory>
 
@@ -37,8 +38,10 @@ namespace JSLib {
 	protected:
 		static std::unique_ptr<Game> _game;
 		
-		static io_service _mainThread, _bgThread;
+		static io_service _mainThread;
 		static UniqueWork _mainThreadWork;
+
+		static io_service _bgThread;
 		
 		Window::Unique _window;
 		

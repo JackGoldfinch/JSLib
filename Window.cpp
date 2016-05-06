@@ -10,8 +10,6 @@
 
 #include "Window.hpp"
 
-#include <string>
-
 namespace JSLib {
 	Uint32 Window::fullscreenMode = SDL_WINDOW_FULLSCREEN;
 	

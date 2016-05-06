@@ -9,6 +9,12 @@
     <ClCompile Include="JSLib.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JSLib.hpp">
@@ -18,6 +24,12 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="JSLib_Export.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hpp">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

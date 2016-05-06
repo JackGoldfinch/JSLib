@@ -12,6 +12,7 @@
 
 #include "JSLib_Export.hpp"
 
+#include <string>
 #include <memory>
 
 #ifdef __JSLIB_WINDOW
