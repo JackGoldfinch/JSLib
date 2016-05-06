@@ -11,6 +11,7 @@
 #include "JSLib.hpp"
 #include "JSLibPriv.hpp"
 
+/*
 void JSLib::HelloWorld(const char * s)
 {
 	 JSLibPriv *theObj = new JSLibPriv;
@@ -22,4 +23,5 @@ void JSLibPriv::HelloWorldPriv(const char * s)
 {
 	std::cout << s << std::endl;
 };
+ */
 

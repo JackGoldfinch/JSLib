@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */; };
+		8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CF41CDCB6D800F78FEE /* Window.cpp */; };
 		8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE55E781CDC8E1A00321D58 /* JSLib.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_Export.hpp; sourceTree = "<group>"; };
+		8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		8FCC0CEF1CDCAFE200F78FEE /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
+		8FCC0CF41CDCB6D800F78FEE /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		8FCC0CF51CDCB6D800F78FEE /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		8FE55E631CDC8D8500321D58 /* libJSLib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libJSLib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE55E781CDC8E1A00321D58 /* JSLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSLib.cpp; sourceTree = "<group>"; };
 		8FE55E791CDC8E1A00321D58 /* JSLib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLib.hpp; sourceTree = "<group>"; };
@@ -29,10 +35,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8FCC0CF31CDCB2D500F78FEE /* Linked Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Linked Libraries";
+			sourceTree = "<group>";
+		};
 		8FE55E5A1CDC8D8500321D58 = {
 			isa = PBXGroup;
 			children = (
 				8FE55E771CDC8E0100321D58 /* Source */,
+				8FCC0CF31CDCB2D500F78FEE /* Linked Libraries */,
 				8FE55E641CDC8D8500321D58 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,6 +66,10 @@
 				8FE55E781CDC8E1A00321D58 /* JSLib.cpp */,
 				8FE55E791CDC8E1A00321D58 /* JSLib.hpp */,
 				8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */,
+				8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */,
+				8FCC0CEF1CDCAFE200F78FEE /* Game.hpp */,
+				8FCC0CF41CDCB6D800F78FEE /* Window.cpp */,
+				8FCC0CF51CDCB6D800F78FEE /* Window.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -130,6 +148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
+				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
+				8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +250,11 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(Developer_LibraryPath)/libSDL2.dylib",
+					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -243,6 +268,11 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(Developer_LibraryPath)/libSDL2.dylib",
+					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

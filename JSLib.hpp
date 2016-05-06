@@ -13,14 +13,19 @@
 
 #include "JSLib_Export.hpp"
 
+#include "Game.hpp"
+#include "Window.hpp"
+
 /* The classes below are exported */
 #pragma GCC visibility push(default)
 
+/*
 class JSLIB_EXPORT JSLib
 {
 	public:
 		void HelloWorld(const char *);
 };
+*/
 
 #pragma GCC visibility pop
 
