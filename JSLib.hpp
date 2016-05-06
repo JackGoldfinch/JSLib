@@ -7,17 +7,21 @@
  *
  */
 
-#ifndef JSLib_
-#define JSLib_
+#pragma once
+#ifndef __JSLIB_HPP
+#define __JSLIB_HPP
+
+#include "JSLib_Export.hpp"
 
 /* The classes below are exported */
 #pragma GCC visibility push(default)
 
-class JSLib
+class JSLIB_EXPORT JSLib
 {
 	public:
 		void HelloWorld(const char *);
 };
 
 #pragma GCC visibility pop
-#endif
+
+#endif // #ifndef __JSLIB_HPP
