@@ -54,6 +54,8 @@ namespace JSLib {
 	
 	Game::~Game() {
 		_window.reset();
+		
+		SDL_QuitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO);
 	}
 	
 	void Game::loop() {

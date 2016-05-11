@@ -1,3 +1,12 @@
+/*
+ *  JSLib_Export.hpp
+ *  JSLib
+ *
+ *  Created by Johannes Stieglitz on 06.05.16.
+ *  Copyright © 2016 Johannes Stieglitz. All rights reserved.
+ *
+ */
+
 #pragma once
 #ifndef __JSLIB_EXPORT_HPP
 #define __JSLIB_EXPORT_HPP
