@@ -20,7 +20,7 @@
 
 #else
 
-#pragma warning No OpenGL Version selected!
+#pragma warning ("No OpenGL Version selected!")
 
 #endif // #ifdef __JSLIB_OPENGL_3_3
 

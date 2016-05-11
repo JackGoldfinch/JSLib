@@ -23,7 +23,7 @@ namespace JSLib {
 			throw false;
 		}
 		
-		_window = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_HIDDEN);
+		_window = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
 		
 		if (!_window) {
 			throw false;
