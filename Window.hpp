@@ -17,6 +17,13 @@
 
 #ifdef __JSLIB_WINDOW
 
+#include "JSLib_OpenGL.hpp"
+
+#pragma warning(once: 4251)
+#include <glbinding/Binding.h>
+#pragma warning(default: 4251)
+using namespace gl;
+
 #include <SDL2/SDL.h>
 
 #else
@@ -36,6 +43,7 @@ namespace JSLib {
 		
 	protected:
 		SDL_Window *_window;
+		SDL_GLContext _context;
 		
 		bool _fullscreen;
 		

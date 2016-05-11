@@ -29,11 +29,29 @@ namespace JSLib {
 			throw false;
 		}
 		
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		
+		SDL_GL_SetSwapInterval(1);
+		
+		_context = SDL_GL_CreateContext(_window);
+		if(!_context) {
+			throw false;
+		}
+		
+		glbinding::Binding::initialize();
+		
+		glViewport(0, 0, width, height);
+		glClearColor(.5f, .5f, .5f, 1.f);
+		
 		SDL_ShowWindow(_window);
 	}
 	
 	Window::~Window() {
 		SDL_HideWindow(_window);
+		
+		SDL_GL_DeleteContext(_context);
 		
 		SDL_DestroyWindow(_window);
 		
@@ -41,10 +59,18 @@ namespace JSLib {
 	}
 	
 	void Window::swap() {
+		glClear(GL_COLOR_BUFFER_BIT);
 		
+		SDL_GL_SwapWindow(_window);
 	}
 	
 	void Window::toggleFullscreen() {
-		
+		if (_fullscreen) {
+			SDL_SetWindowFullscreen(_window, 0);
+			_fullscreen = false;
+		} else {
+			SDL_SetWindowFullscreen(_window, fullscreenMode);
+			_fullscreen = true;
+		}
 	}
 }

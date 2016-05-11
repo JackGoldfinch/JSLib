@@ -92,6 +92,6 @@ namespace JSLib {
 	}
 	
 	void Game::render() {
-		
+		_window->swap();
 	}
 }

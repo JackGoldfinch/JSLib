@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FBA43C91CE0A21300A9E9F0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */; };
 		8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */; };
 		8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CF41CDCB6D800F78FEE /* Window.cpp */; };
 		8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE55E781CDC8E1A00321D58 /* JSLib.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_OpenGL.hpp; sourceTree = "<group>"; };
 		8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_Export.hpp; sourceTree = "<group>"; };
 		8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		8FCC0CEF1CDCAFE200F78FEE /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FBA43C91CE0A21300A9E9F0 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +42,7 @@
 		8FCC0CF31CDCB2D500F78FEE /* Linked Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */,
 			);
 			name = "Linked Libraries";
 			sourceTree = "<group>";
@@ -63,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */,
+				8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */,
 				8FE55E781CDC8E1A00321D58 /* JSLib.cpp */,
 				8FE55E791CDC8E1A00321D58 /* JSLib.hpp */,
 				8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */,
@@ -249,11 +255,13 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = __JSLIB_OPENGL_3_3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(Developer_LibraryPath)/libSDL2.dylib",
 					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
+					"$(Developer_LibraryPath)/libglbinding.dylib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -267,11 +275,13 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = __JSLIB_OPENGL_3_3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(Developer_LibraryPath)/libSDL2.dylib",
 					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
+					"$(Developer_LibraryPath)/libglbinding.dylib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
