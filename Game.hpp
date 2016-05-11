@@ -16,9 +16,6 @@
 #include <iostream>
 #include <memory>
 
-#include <boost/asio.hpp>
-using boost::asio::io_service;
-
 #include <glm/glm.hpp>
 
 #ifdef __JSLIB_GAME
@@ -27,21 +24,14 @@ using boost::asio::io_service;
 
 #endif // #ifdef __JSLIB_GAME
 
+#include "Util/Worker.hpp"
+
 #include "Window.hpp"
 
 namespace JSLib {
 	class JSLIB_EXPORT Game {
-	public:
-		typedef io_service::work Work;
-		typedef std::unique_ptr<Work> UniqueWork;
-		
 	protected:
 		static std::unique_ptr<Game> _game;
-		
-		static io_service _mainThread;
-		static UniqueWork _mainThreadWork;
-
-		static io_service _bgThread;
 		
 		Window::Unique _window;
 		
@@ -55,6 +45,8 @@ namespace JSLib {
 		void render();
 		
 	public:
+		static Util::Worker &worker;
+		
 		static int Run(const std::string &title, int argc, char *args[]);
 		
 		~Game();

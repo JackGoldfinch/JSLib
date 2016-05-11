@@ -13,22 +13,23 @@
 #include <SDL2/SDL.h>
 
 namespace JSLib {
-	io_service Game::_mainThread;
-	io_service Game::_bgThread;
-	Game::UniqueWork Game::_mainThreadWork(new Game::Work(Game::_mainThread));
-	
 	std::unique_ptr<Game> Game::_game;
 	
-	int Game::Run(const std::string &title, int argc, char **args) {
+	Util::Worker &Game::worker = Util::Worker::Get();
+	
+	int Game::Run(const std::string &title, int argc, char *args[]) {
 		if (_game) {
 			throw false;
 		}
 		
-		_game.reset(new Game(title));
-		
-		_mainThread.post(std::bind(&Game::loop, _game.get()));
-		
-		_mainThread.run();
+		try {
+			_game.reset(new Game(title));
+			
+			worker.postOnMainThread(std::bind(&Game::loop, _game.get()));
+			
+			worker.runMainThread();
+		} catch (...) {
+		}
 		
 		return 0;
 	}
@@ -50,12 +51,12 @@ namespace JSLib {
 	}
 	
 	void Game::loop() {
-		if (_mainThreadWork) {
+		if (worker.hasWork()) {
 			poll();
 			
 			render();
 			
-			_mainThread.post(std::bind(&Game::loop, this));
+			worker.postOnMainThread(std::bind(&Game::loop, this));
 		}
 	}
 	
@@ -85,7 +86,7 @@ namespace JSLib {
 		while (SDL_PollEvent(&event)) {
 			switch(event.type) {
 				case SDL_QUIT:
-					_mainThreadWork.reset();
+					worker.reset();
 					return;
 			}
 		}
