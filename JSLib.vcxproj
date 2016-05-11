@@ -104,12 +104,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;JSLIB_EXPORTS;%(PreprocessorDefinitions);__JSLIB_EXPORTING</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;JSLIB_EXPORTS;%(PreprocessorDefinitions);__JSLIB_EXPORTING;__JSLIB_OPENGL_3_3</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>SDL2.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>SDL2.lib OpenGL32.lib glbinding.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,19 +137,21 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;JSLIB_EXPORTS;%(PreprocessorDefinitions);__JSLIB_EXPORTING</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;JSLIB_EXPORTS;%(PreprocessorDefinitions);__JSLIB_EXPORTING;__JSLIB_OPENGL_3_3</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>SDL2.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>SDL2.lib OpenGL32.lib glbinding.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="JSLib.cpp" />
+    <ClCompile Include="Util\Logger.cpp" />
+    <ClCompile Include="Util\Worker.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +159,9 @@
     <ClInclude Include="JSLib.hpp" />
     <ClInclude Include="JSLibPriv.hpp" />
     <ClInclude Include="JSLib_Export.hpp" />
+    <ClInclude Include="jslib_opengl.hpp" />
+    <ClInclude Include="Util\Logger.hpp" />
+    <ClInclude Include="Util\Worker.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
