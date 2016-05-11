@@ -25,6 +25,7 @@
 #endif // #ifdef __JSLIB_GAME
 
 #include "Util/Worker.hpp"
+#include "Util/Logger.hpp"
 
 #include "Window.hpp"
 
@@ -46,6 +47,7 @@ namespace JSLib {
 		
 	public:
 		static Util::Worker &worker;
+		static Util::Logger log;
 		
 		static int Run(const std::string &title, int argc, char *args[]);
 		

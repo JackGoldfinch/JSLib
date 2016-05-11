@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8FBA43C91CE0A21300A9E9F0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */; };
+		8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */; };
 		8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */; };
 		8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */; };
 		8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CF41CDCB6D800F78FEE /* Window.cpp */; };
@@ -17,6 +18,8 @@
 /* Begin PBXFileReference section */
 		8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_OpenGL.hpp; sourceTree = "<group>"; };
+		8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
+		8FBA43CD1CE0A88100A9E9F0 /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
 		8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Worker.cpp; sourceTree = "<group>"; };
 		8FBA43D01CE0ED8000A9E9F0 /* Worker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Worker.hpp; sourceTree = "<group>"; };
 		8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_Export.hpp; sourceTree = "<group>"; };
@@ -45,6 +48,8 @@
 		8FBA43CB1CE0A86800A9E9F0 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */,
+				8FBA43CD1CE0A88100A9E9F0 /* Logger.hpp */,
 				8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */,
 				8FBA43D01CE0ED8000A9E9F0 /* Worker.hpp */,
 			);
@@ -170,6 +175,7 @@
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
 				8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */,
 				8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */,
+				8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

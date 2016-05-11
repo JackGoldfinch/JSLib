@@ -8,6 +8,8 @@
 
 #define __JSLIB_GAME
 
+#include <cmath>
+
 #include "Game.hpp"
 
 #include <SDL2/SDL.h>
@@ -16,6 +18,7 @@ namespace JSLib {
 	std::unique_ptr<Game> Game::_game;
 	
 	Util::Worker &Game::worker = Util::Worker::Get();
+	Util::Logger Game::log;
 	
 	int Game::Run(const std::string &title, int argc, char *args[]) {
 		if (_game) {
@@ -23,12 +26,15 @@ namespace JSLib {
 		}
 		
 		try {
+			log.setFile(title + ".log");
+			
 			_game.reset(new Game(title));
 			
 			worker.postOnMainThread(std::bind(&Game::loop, _game.get()));
 			
 			worker.runMainThread();
 		} catch (...) {
+			log << "Something went terribly wrong..." << std::endl;
 		}
 		
 		return 0;
@@ -61,22 +67,28 @@ namespace JSLib {
 	}
 	
 	void Game::displayModes() {
+		log << "--- Displays ---\n";
+		
 		int numDisplays = SDL_GetNumVideoDisplays();
+		int logNumDisplays = std::log10(numDisplays) + 1;
+		
 		for (int i = 0; i < numDisplays; ++i) {
 			auto displayName = SDL_GetDisplayName(i);
 			
-			std::cout << "Display (" << i + 1 << "/" << numDisplays << "): " << displayName << std::endl;
-			std::cout << "\t+ Display modes:\n";
+			log << "- Display (" << log.formattedNumber(i + 1, logNumDisplays) << "/" << log.formattedNumber(numDisplays, logNumDisplays) << "): " << displayName << std::endl;
+			log << "\t+ Display modes:";
 			
 			int numDisplayModes = SDL_GetNumDisplayModes(i);
+			int logNumDisplayModes = std::log10(numDisplayModes) + 1;
+			
 			for (int i2 = 0; i2 < numDisplayModes; ++i2) {
 				SDL_DisplayMode displayMode;
 				if (SDL_GetDisplayMode(i, i2, &displayMode) != -1) {
-					std::cout << "\t\t(" << i2 + 1 << "/" << numDisplayModes << ") " << displayMode.w << "x" << displayMode.h << "@" << displayMode.refresh_rate << "\n";
+					log << "\n\t\t(" << log.formattedNumber(i2 + 1, logNumDisplayModes) << "/" << log.formattedNumber(numDisplayModes, logNumDisplayModes) << ") " << displayMode.w << "x" << displayMode.h << "@" << displayMode.refresh_rate << "(" << SDL_GetPixelFormatName(displayMode.format) << ")";
 				}
 			}
 			
-			std::cout << std::endl;
+			log << std::endl;
 		}
 	}
 	
