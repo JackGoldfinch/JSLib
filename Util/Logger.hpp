@@ -20,6 +20,9 @@
 #include <map>
 #include <iomanip>
 
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
 #include "Worker.hpp"
 
 namespace JSLib { namespace Util {
@@ -42,7 +45,7 @@ namespace JSLib { namespace Util {
 	public:
 		~Logger();
 		
-		void setFile(const std::string &file);
+		void setFile(const fs::path &file);
 		void closeFile();
 		
 		template <class T>

@@ -10,6 +10,12 @@
 
 #include <cmath>
 
+#ifndef _WINDOWS
+
+#include <unistd.h>
+
+#endif
+
 #include "Game.hpp"
 
 #include <SDL2/SDL.h>
@@ -19,6 +25,10 @@ namespace JSLib {
 	
 	Util::Worker &Game::worker = Util::Worker::Get();
 	Util::Logger Game::log;
+
+	fs::path basePath;
+	fs::path cwdPath;
+	fs::path prefPath;
 	
 	int Game::Run(const std::string &title, int argc, char *args[]) {
 		if (_game) {
@@ -26,8 +36,6 @@ namespace JSLib {
 		}
 		
 		try {
-			log.setFile(title + ".log");
-			
 			_game.reset(new Game(title));
 			
 			worker.postOnMainThread(std::bind(&Game::loop, _game.get()));
@@ -41,6 +49,28 @@ namespace JSLib {
 	}
 	
 	Game::Game(const std::string &title) {
+		basePath = SDL_GetBasePath();
+		
+#ifdef _WINDOWS
+
+		{
+			wchar_t cwdBuf[MAX_PATH];
+			auto cwd = _wgetcwd(cwdBuf, MAX_PATH);
+
+			cwdPath = cwd;
+		}
+
+#else
+
+		cwdPath = getcwd();
+
+#endif
+
+		prefPath = SDL_GetPrefPath(title.c_str(), "JaySoft");
+
+		//log.setFile(title + ".log");
+		log.setFile(cwdPath / (title + ".log").c_str());
+		
 		if (SDL_InitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO) < 0) {
 			throw false;
 		}

@@ -13,10 +13,10 @@ namespace JSLib { namespace Util {
 		closeFile();
 	}
 	
-	void Logger::setFile(const std::string &file) {
+	void Logger::setFile(const fs::path &file) {
 		closeFile();
 		
-		_file = new std::fstream(file, std::ios::out);
+		_file = new std::fstream(file.c_str(), std::ios::out);
 		if ((! _file) || (! _file->is_open())) {
 			_file = nullptr;
 			throw false;
