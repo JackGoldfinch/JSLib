@@ -62,9 +62,11 @@ namespace JSLib { namespace Util {
 			
 			if (func == (stream_function)std::endl) {
 				std::cout << stringstream.str();
+				std::cout.flush();
 				
 				if (_file) {
 					*_file << stringstream.str();
+					_file->flush();
 				}
 				
 				stringstream.str("");
