@@ -26,11 +26,15 @@ using namespace gl;
 
 #include <SDL2/SDL.h>
 
+#define JSLIB_GLM_NO_FWD
+
 #else
 
 #include <SDL2/SDL_video.h>
 
 #endif // #ifdef __JSLIB_WINDOW_CPP
+
+#include "JSLib_GLM.hpp"
 
 namespace JSLib {
 	class JSLIB_EXPORT Window {
@@ -55,6 +59,8 @@ namespace JSLib {
 		void swap();
 		
 		void toggleFullscreen();
+
+		void clearColor (const glm::color4 &clearColor);
 	};
 }
 

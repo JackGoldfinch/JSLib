@@ -43,7 +43,7 @@ namespace JSLib {
 		glbinding::Binding::initialize();
 		
 		glViewport(0, 0, width, height);
-		glClearColor(.5f, .5f, .5f, 1.f);
+		clearColor({.5f, .5f, .5f, 1.f});
 		
 		SDL_ShowWindow(_window);
 	}
@@ -72,5 +72,9 @@ namespace JSLib {
 			SDL_SetWindowFullscreen(_window, fullscreenMode);
 			_fullscreen = true;
 		}
+	}
+
+	void Window::clearColor(const glm::color4 &clearColor) {
+		glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 	}
 }
