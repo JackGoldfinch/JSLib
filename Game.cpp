@@ -96,9 +96,13 @@ namespace JSLib {
 		displayModes();
 
 		_window = Window::Create(title, 1280, 720, false);
+
+		_audioSystem = new AudioSystem;
 	}
 	
 	Game::~Game() {
+		delete _audioSystem;
+
 		_window.reset();
 
 		SDL_QuitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO);

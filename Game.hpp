@@ -27,6 +27,8 @@
 #include "Util/Worker.hpp"
 #include "Util/Logger.hpp"
 
+#include "Audio/System.hpp"
+
 #include "Window.hpp"
 
 namespace JSLib {
@@ -50,6 +52,8 @@ namespace JSLib {
 		
 		Window::Unique _window;
 		
+		AudioSystem *_audioSystem = nullptr;
+
 		Game(const std::string &title);
 		
 		void loop();
