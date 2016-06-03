@@ -13,6 +13,8 @@
 #include "../JSLib_Export.hpp"
 
 #include <memory>
+#include <thread>
+#include <vector>
 
 #include <boost/asio.hpp>
 using boost::asio::io_service;
@@ -20,16 +22,21 @@ using boost::asio::io_service;
 namespace JSLib { namespace Util {
 	class JSLIB_EXPORT Worker {
 	public:
-		typedef io_service::work Work;
+		typedef io_service Service;
+		typedef Service::work Work;
 		typedef std::unique_ptr<Work> UniqueWork;
 		
 	protected:
-		io_service _mainThread;
+		static void RunBackgroundThread (Service *service);
+
+		Service _mainThread;
 		UniqueWork _mainThreadWork;
 		
-		io_service _bgThread;
+		Service _bgThread;
 		UniqueWork _bgThreadWork;
 		
+		std::vector<std::unique_ptr<std::thread>> _threads;
+
 		Worker();
 		
 	public:
