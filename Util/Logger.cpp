@@ -9,6 +9,10 @@
 #include "Logger.hpp"
 
 namespace JSLib { namespace Util {
+	Logger::Logger() {
+		_intermediateStringStream.imbue(std::locale(std::locale(""), new pt::time_facet("%Y/%m/%d %H:%M:%S%F")));
+	}
+
 	Logger::~Logger() {
 		closeFile();
 	}

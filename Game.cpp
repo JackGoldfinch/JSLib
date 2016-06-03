@@ -6,7 +6,7 @@
 //  Copyright © 2016 Johannes Stieglitz. All rights reserved.
 //
 
-#define __JSLIB_GAME
+#define __JSLIB_GAME_CPP
 
 #include <cmath>
 
@@ -49,8 +49,16 @@ namespace JSLib {
 	}
 	
 	Game::Game(const std::string &title) {
-		basePath = SDL_GetBasePath();
+		std::atexit([](){
+			log << "Fin." << std::endl;
+		});
+
+		auto cBasePath = SDL_GetBasePath();
+		basePath = cBasePath;
+		SDL_free(cBasePath);
 		
+		basePath = basePath.parent_path().parent_path().parent_path();
+
 #ifdef _WINDOWS
 
 		{
@@ -62,29 +70,37 @@ namespace JSLib {
 
 #else
 
-		cwdPath = getcwd();
+		char cwdBuf[1024];
+		auto cwd = getcwd(cwdBuf, 1024);
+
+		cwdPath = cwd;
 
 #endif
 
-		prefPath = SDL_GetPrefPath(title.c_str(), "JaySoft");
+		auto cPrefPath = SDL_GetPrefPath(title.c_str(), "JaySoft");
+		prefPath = cPrefPath;
+		SDL_free(cPrefPath);
 
-		//log.setFile(title + ".log");
-		log.setFile(cwdPath / (title + ".log").c_str());
-		
+		log.setFile(basePath / (title + ".log").c_str());
+
+		log << "Base path: " << basePath << std::endl;
+		log << "CWD path: " << cwdPath << std::endl;
+		log << "Pref path: " << prefPath << std::endl;
+
 		if (SDL_InitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO) < 0) {
 			throw false;
 		}
 		
 		std::atexit(SDL_Quit);
-		
+
 		displayModes();
-		
+
 		_window = Window::Create(title, 1280, 720, false);
 	}
 	
 	Game::~Game() {
 		_window.reset();
-		
+
 		SDL_QuitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO);
 	}
 	
@@ -107,7 +123,7 @@ namespace JSLib {
 		for (int i = 0; i < numDisplays; ++i) {
 			auto displayName = SDL_GetDisplayName(i);
 			
-			log << "- Display (" << log.formattedNumber(i + 1, logNumDisplays) << "/" << log.formattedNumber(numDisplays, logNumDisplays) << "): " << displayName << std::endl;
+			log << "- Display (" << log.formattedNumber(i + 1, logNumDisplays) << "/" << log.formattedNumber(numDisplays, logNumDisplays) << "): " << displayName << "\n";
 			log << "\t+ Display modes:";
 			
 			int numDisplayModes = SDL_GetNumDisplayModes(i);

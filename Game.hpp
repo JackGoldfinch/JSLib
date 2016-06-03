@@ -18,11 +18,11 @@
 
 #include <glm/glm.hpp>
 
-#ifdef __JSLIB_GAME
+#ifdef __JSLIB_GAME_CPP
 
 #else
 
-#endif // #ifdef __JSLIB_GAME
+#endif // #ifdef __JSLIB_GAME_CPP
 
 #include "Util/Worker.hpp"
 #include "Util/Logger.hpp"

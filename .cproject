@@ -26,12 +26,15 @@
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.so.debug.782569223" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.debug"/>
 							<builder buildPath="${workspace_loc:/JSLib}/Debug" id="cdt.managedbuild.target.gnu.builder.so.debug.1500317662" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.so.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1427631224" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.so.debug.1438769417" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.so.debug">
+							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.cpp.compiler.so.debug.1438769417" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.so.debug">
 								<option id="gnu.cpp.compiler.so.debug.option.optimization.level.1961681203" name="Optimization Level" superClass="gnu.cpp.compiler.so.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.so.debug.option.debugging.level.1173848289" name="Debug Level" superClass="gnu.cpp.compiler.so.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.366807001" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.dialect.flags.1438267735" name="Other dialect flags" superClass="gnu.cpp.compiler.option.dialect.flags" useByScannerDiscovery="true" value="-std=c++11" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.other.pic.1105380729" name="Position Independent Code (-fPIC)" superClass="gnu.cpp.compiler.option.other.pic" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1849129162" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__JSLIB_OPENGL_3_3"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.700011475" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.so.debug.1950661652" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.so.debug">
@@ -46,7 +49,10 @@
 								<option defaultValue="true" id="gnu.cpp.link.so.debug.option.shared.1830830668" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.libs.1927136129" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="SDL2"/>
+									<listOptionValue builtIn="false" value="boost_date_time-mt"/>
 									<listOptionValue builtIn="false" value="boost_system-mt"/>
+									<listOptionValue builtIn="false" value="glbinding"/>
+									<listOptionValue builtIn="false" value="boost_filesystem-mt"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.1858182285" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.914688393" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -94,6 +100,9 @@
 								<option id="gnu.cpp.compiler.option.other.pic.405050173" name="Position Independent Code (-fPIC)" superClass="gnu.cpp.compiler.option.other.pic" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.99004811" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.dialect.flags.1025381516" name="Other dialect flags" superClass="gnu.cpp.compiler.option.dialect.flags" value="-std=c++11" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.122381780" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__JSLIB_OPENGL_3_3"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1314976278" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.so.release.583242093" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.so.release">
@@ -108,7 +117,10 @@
 								<option defaultValue="true" id="gnu.cpp.link.so.release.option.shared.732576979" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.libs.1095088514" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="SDL2"/>
+									<listOptionValue builtIn="false" value="boost_date_time-mt"/>
 									<listOptionValue builtIn="false" value="boost_system-mt"/>
+									<listOptionValue builtIn="false" value="glbinding"/>
+									<listOptionValue builtIn="false" value="boost_filesystem-mt"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.1208661794" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1196010864" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">

@@ -15,7 +15,7 @@
 #include <string>
 #include <memory>
 
-#ifdef __JSLIB_WINDOW
+#ifdef __JSLIB_WINDOW_CPP
 
 #include "JSLib_OpenGL.hpp"
 
@@ -30,7 +30,7 @@ using namespace gl;
 
 #include <SDL2/SDL_video.h>
 
-#endif // #ifdef __JSLIB_WINDOW
+#endif // #ifdef __JSLIB_WINDOW_CPP
 
 namespace JSLib {
 	class JSLIB_EXPORT Window {
@@ -46,7 +46,7 @@ namespace JSLib {
 		SDL_GLContext _context;
 		
 		bool _fullscreen;
-		
+
 		Window(const std::string &title, unsigned int width, unsigned int height, bool fullscreen, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
 		
 	public:

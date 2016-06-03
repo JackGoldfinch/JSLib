@@ -6,7 +6,7 @@
 //  Copyright © 2016 Johannes Stieglitz. All rights reserved.
 //
 
-#define __JSLIB_WINDOW
+#define __JSLIB_WINDOW_CPP
 
 #include "Window.hpp"
 

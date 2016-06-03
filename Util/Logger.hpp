@@ -23,6 +23,9 @@
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+namespace pt = boost::posix_time;
+
 #include "Worker.hpp"
 
 namespace JSLib { namespace Util {
@@ -36,13 +39,16 @@ namespace JSLib { namespace Util {
 		
 		StringStreamMap _stringStreamMap;
 		
+		std::stringstream _intermediateStringStream;
+
 		std::fstream *_file = nullptr;
-		
+
 		std::stringstream &getStringStream() {
 			return _stringStreamMap[std::this_thread::get_id()];
 		}
 		
 	public:
+		Logger();
 		~Logger();
 		
 		void setFile(const fs::path &file);
@@ -56,22 +62,29 @@ namespace JSLib { namespace Util {
 		}
 		
 		Logger &operator<<(stream_function func) {
+			_mutex.lock();
+
 			auto &stringstream = getStringStream();
-			
-			func(stringstream);
-			
+
 			if (func == (stream_function)std::endl) {
-				std::cout << stringstream.str();
+				_intermediateStringStream << pt::microsec_clock::local_time();
+
+				std::cout << _intermediateStringStream.str() << ": " << stringstream.str() << "\n";
 				std::cout.flush();
 				
 				if (_file) {
-					*_file << stringstream.str();
+					*_file << _intermediateStringStream.str() << ": " << stringstream.str() << "\n";
 					_file->flush();
 				}
 				
+				_intermediateStringStream.str("");
 				stringstream.str("");
+			} else {
+				func(stringstream);
 			}
 			
+			_mutex.unlock();
+
 			return *this;
 		}
 		
