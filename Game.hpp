@@ -31,6 +31,20 @@
 
 namespace JSLib {
 	class JSLIB_EXPORT Game {
+	public:
+		struct RunSettings {
+			int argc;
+			char **args;
+
+			RunSettings() {
+				memset(this, 0, sizeof(RunSettings));
+			}
+		};
+
+		struct Settings {
+
+		};
+
 	protected:
 		static std::unique_ptr<Game> _game;
 		
@@ -49,7 +63,7 @@ namespace JSLib {
 		static Util::Worker &worker;
 		static Util::Logger log;
 		
-		static int Run(const std::string &title, int argc, char *args[]);
+		static int Run(const std::string &title, RunSettings *runSettings = nullptr) noexcept;
 		
 		~Game();
 	};

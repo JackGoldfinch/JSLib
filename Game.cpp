@@ -30,7 +30,7 @@ namespace JSLib {
 	fs::path cwdPath;
 	fs::path prefPath;
 	
-	int Game::Run(const std::string &title, int argc, char *args[]) {
+	int Game::Run(const std::string &title, RunSettings *runSettings) noexcept {
 		if (_game) {
 			throw false;
 		}
