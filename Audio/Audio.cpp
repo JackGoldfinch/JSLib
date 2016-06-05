@@ -1,21 +1,25 @@
 /*
- * System.cpp
+ * Audio.cpp
  *
  *  Created on: 29.05.2016
  *      Author: johannes
  */
 
-#define __JSL_AUDIO_SYSTEM_CPP
+#define __JSL_AUDIO_AUDIO_CPP
 
-#include "System.hpp"
+#include "Audio.hpp"
+
+#include "../Game.hpp"
 
 namespace JSLib {
 namespace Audio {
 
-System::System() {
+	System::System() {
 		/*if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
 
 		}*/
+	
+		Game::log << "System: Starting <Audio>..." << std::endl;
 
 		const ALCchar *devices = nullptr;
 		if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT") == ALC_TRUE) {
@@ -32,14 +36,20 @@ System::System() {
 		alListener3f(AL_VELOCITY, 0.f, 0.f, 0.f);
 		alListenerfv(AL_ORIENTATION, ori);
 		//alListenerf(AL_GAIN, 1.f);
+		
+		Game::log << "System: Starting <Audio>... OK." << std::endl;
 	}
 
 	System::~System() {
+		Game::log << "System: Stopping <Audio>..." << std::endl;
+		
 		alcDestroyContext(_context);
 
 		alcCloseDevice(_device);
 
 		//SDL_QuitSubSystem(SDL_INIT_AUDIO);
+		
+		Game::log << "System: Stopping <Audio>... OK." << std::endl;
 	}
 
 } /* namespace Audio */

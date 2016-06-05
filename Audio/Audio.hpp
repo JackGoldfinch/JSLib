@@ -1,18 +1,17 @@
 /*
- * System.hpp
+ * Audio.hpp
  *
  *  Created on: 29.05.2016
  *      Author: johannes
  */
 
 #pragma once
-#ifndef AUDIO_SYSTEM_HPP_
-#define AUDIO_SYSTEM_HPP_
+#ifndef AUDIO_AUDIO_HPP_
+#define AUDIO_AUDIO_HPP_
 
 #include "../JSLib_Export.hpp"
 
-#include <AL/al.h>
-#include <AL/alc.h>
+#include "../JSLib_OpenAL.hpp"
 
 namespace JSLib {
 namespace Audio {
@@ -33,4 +32,4 @@ typedef Audio::System AudioSystem;
 
 } /* namespace JSLib */
 
-#endif /* AUDIO_SYSTEM_HPP_ */
+#endif /* AUDIO_AUDIO_HPP_ */

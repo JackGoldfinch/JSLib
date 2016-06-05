@@ -27,7 +27,7 @@
 #include "Util/Worker.hpp"
 #include "Util/Logger.hpp"
 
-#include "Audio/System.hpp"
+#include "Audio/Audio.hpp"
 
 #include "Window.hpp"
 
