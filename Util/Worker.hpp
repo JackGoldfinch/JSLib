@@ -36,15 +36,16 @@ namespace JSLib { namespace Util {
 		UniqueWork _bgThreadWork;
 		
 		std::vector<std::unique_ptr<std::thread>> _threads;
-
-		Worker();
 		
 	public:
+		Worker();
 		~Worker();
 		
 		static Worker &Get();
 		
-		std::size_t runMainThread();
+		boost::system::error_code runMainThreadQueue();
+		
+		void addThreads(unsigned int count = std::thread::hardware_concurrency() - 1);
 		
 		template <class T>
 		void postOnMainThread(T &&handler) {

@@ -44,30 +44,37 @@ namespace JSLib {
 		};
 
 		struct Settings {
-
+			const char *title;
+			const char *company;
+			
+			Window::Settings window;
+		};
+		
+		struct SDLEventsInitFailedException : std::runtime_error {
+			SDLEventsInitFailedException() : std::runtime_error("SDL system 'events' failed to initialise."){}
 		};
 
 	protected:
 		static std::unique_ptr<Game> _game;
 		
+		bool _running;
+		
 		Window::Unique _window;
 		
 		AudioSystem *_audioSystem = nullptr;
 
-		Game(const std::string &title);
+		Game(Settings &settings);
 		
 		void loop();
-		
-		void displayModes();
 		
 		void poll();
 		void render();
 		
 	public:
-		static Util::Worker &worker;
 		static Util::Logger log;
+		static Util::Worker worker;
 		
-		static int Run(const std::string &title, RunSettings *runSettings = nullptr) noexcept;
+		static int Run(Settings &settings, RunSettings *runSettings = nullptr) noexcept;
 		
 		~Game();
 	};

@@ -8,8 +8,6 @@
 
 #define __JSLIB_GAME_CPP
 
-#include <cmath>
-
 #ifndef _WINDOWS
 
 #include <unistd.h>
@@ -23,124 +21,122 @@
 namespace JSLib {
 	std::unique_ptr<Game> Game::_game;
 	
-	Util::Worker &Game::worker = Util::Worker::Get();
 	Util::Logger Game::log;
+	Util::Worker Game::worker;
 
 	fs::path basePath;
 	fs::path cwdPath;
 	fs::path prefPath;
 	
-	int Game::Run(const std::string &title, RunSettings *runSettings) noexcept {
+	int Game::Run(Settings &settings, RunSettings *runSettings) noexcept {
 		if (_game) {
-			throw false;
+			return -1;
 		}
 		
-		try {
-			_game.reset(new Game(title));
-			
-			worker.postOnMainThread(std::bind(&Game::loop, _game.get()));
-			
-			worker.runMainThread();
-		} catch (...) {
-			log << "Something went terribly wrong..." << std::endl;
-		}
-		
-		return 0;
-	}
-	
-	Game::Game(const std::string &title) {
-		std::atexit([](){
-			log << "Fin." << std::endl;
-		});
-
 		auto cBasePath = SDL_GetBasePath();
 		basePath = cBasePath;
 		SDL_free(cBasePath);
 		
-		basePath = basePath.parent_path().parent_path().parent_path();
-
 #ifdef _WINDOWS
-
+		
+		basePath = basePath.parent_path().parent_path().parent_path();
+		
 		{
 			wchar_t cwdBuf[MAX_PATH];
 			auto cwd = _wgetcwd(cwdBuf, MAX_PATH);
-
+			
 			cwdPath = cwd;
 		}
-
+		
+#elif defined __APPLE__
+		
+		basePath = basePath / "Content" / "Resources";
+		
 #else
-
+		
+		basePath = basePath.parent_path().parent_path().parent_path();
+		
 		char cwdBuf[1024];
 		auto cwd = getcwd(cwdBuf, 1024);
-
+		
 		cwdPath = cwd;
-
+		
 #endif
-
-		auto cPrefPath = SDL_GetPrefPath(title.c_str(), "JaySoft");
+		
+		auto cPrefPath = SDL_GetPrefPath(settings.company, settings.title);
 		prefPath = cPrefPath;
 		SDL_free(cPrefPath);
-
-		log.setFile(basePath / (title + ".log").c_str());
-
-		log << "Base path: " << basePath << std::endl;
-		log << "CWD path: " << cwdPath << std::endl;
-		log << "Pref path: " << prefPath << std::endl;
-
-		if (SDL_InitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO) < 0) {
-			throw false;
+		
+		auto logPath = prefPath / settings.title;
+		logPath += ".log";
+		log.setFile(logPath);
+		
+		log << "-- Base path: " << basePath << std::endl;
+		log << "-- CWD path: " << cwdPath << std::endl;
+		log << "-- Pref path: " << prefPath << std::endl;
+		
+		try {
+			_game.reset(new Game(settings));
+			
+			_game->loop();
+		} catch (const std::exception &e) {
+			log << "Something went terribly wrong..." << std::endl;
+			log << "This is what we've got: '" << e.what() << "'." << std::endl;
+		} catch (...) {
+			log << "Something went terribly wrong..." << std::endl;
+		}
+		
+		_game.reset();
+			
+		log << "Fin." << std::endl;
+		
+		return 0;
+	}
+	
+		Game::Game(Settings &settings):
+		_running(true) {
+		log << "Game: Starting..." << std::endl;
+		
+		worker.addThreads();
+			
+		if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0) {
+			throw SDLEventsInitFailedException();
 		}
 		
 		std::atexit(SDL_Quit);
 
-		displayModes();
-
-		_window = Window::Create(title, 1280, 720, false);
+		_window = Window::Create(settings.title, settings.window);
 
 		_audioSystem = new AudioSystem;
+		
+		log << "Game: Starting... OK." << std::endl;
 	}
 	
 	Game::~Game() {
+		log << "Game: Stopping..." << std::endl;
+		
 		delete _audioSystem;
 
 		_window.reset();
 
-		SDL_QuitSubSystem(SDL_INIT_EVENTS|SDL_INIT_VIDEO);
+		SDL_QuitSubSystem(SDL_INIT_EVENTS);
+		
+		worker.reset();
+		
+		log << "Game: Stopping... OK." << std::endl;
 	}
 	
 	void Game::loop() {
-		if (worker.hasWork()) {
+		render();
+		
+		_window->show();
+		
+		while (_running) {
 			poll();
 			
 			render();
 			
-			worker.postOnMainThread(std::bind(&Game::loop, this));
-		}
-	}
-	
-	void Game::displayModes() {
-		log << "--- Displays ---\n";
-		
-		int numDisplays = SDL_GetNumVideoDisplays();
-		int logNumDisplays = std::log10(numDisplays) + 1;
-		
-		for (int i = 0; i < numDisplays; ++i) {
-			auto displayName = SDL_GetDisplayName(i);
-			
-			log << "- Display (" << log.formattedNumber(i + 1, logNumDisplays) << "/" << log.formattedNumber(numDisplays, logNumDisplays) << "): " << displayName << "\n";
-			log << "\t+ Display modes:";
-			
-			int numDisplayModes = SDL_GetNumDisplayModes(i);
-			int logNumDisplayModes = std::log10(numDisplayModes) + 1;
-			
-			for (int i2 = 0; i2 < numDisplayModes; ++i2) {
-				SDL_DisplayMode displayMode;
-				if (SDL_GetDisplayMode(i, i2, &displayMode) != -1) {
-					log << "\n\t\t(" << log.formattedNumber(i2 + 1, logNumDisplayModes) << "/" << log.formattedNumber(numDisplayModes, logNumDisplayModes) << ") " << displayMode.w << "x" << displayMode.h << "@" << displayMode.refresh_rate << "(" << SDL_GetPixelFormatName(displayMode.format) << ")";
-				}
-			}
-			
-			log << std::endl;
+			worker.runMainThreadQueue();
 		}
 	}
 	
@@ -150,7 +146,7 @@ namespace JSLib {
 		while (SDL_PollEvent(&event)) {
 			switch(event.type) {
 				case SDL_QUIT:
-					worker.reset();
+					_running = false;
 					return;
 			}
 		}

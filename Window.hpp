@@ -39,24 +39,47 @@ using namespace gl;
 namespace JSLib {
 	class JSLIB_EXPORT Window {
 	public:
+		struct SDLVideoInitFailedException : public std::runtime_error {
+			SDLVideoInitFailedException() : std::runtime_error("SDL system 'video' failed to initialise.") {}
+		};
+		
+		struct WindowCreationFailedException : public std::runtime_error {
+			WindowCreationFailedException() : std::runtime_error("Window creation failed.") {}
+		};
+		
+		struct OpenGLContextCreationFailedException : public std::runtime_error {
+			OpenGLContextCreationFailedException() : std::runtime_error("Creation of OpenGL context failed.") {}
+		};
+		
+		struct Settings {
+			unsigned int width, height;
+			bool fullscreen;
+		};
+		
 		typedef std::unique_ptr<Window> Unique;
 		
 		static Uint32 fullscreenMode;
 		
-		static Unique Create(const std::string &title, unsigned int width, unsigned int height, bool fullscreen, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
+		static Unique Create(const std::string &title, Settings &settings, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
 		
 	protected:
+		Settings &_settings;
+		
 		SDL_Window *_window;
 		SDL_GLContext _context;
 		
 		bool _fullscreen;
 
-		Window(const std::string &title, unsigned int width, unsigned int height, bool fullscreen, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
+		Window(const std::string &title, Settings &settings, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
 		
 	public:
 		~Window();
 		
 		void swap();
+		
+		void show() const {
+			SDL_ShowWindow(_window);
+		}
 		
 		void toggleFullscreen();
 

@@ -10,23 +10,120 @@
 
 #include "Window.hpp"
 
+#include "Game.hpp"
+
 namespace JSLib {
 	Uint32 Window::fullscreenMode = SDL_WINDOW_FULLSCREEN;
 	
-	Window::Unique Window::Create(const std::string &title, unsigned int width, unsigned int height, bool fullscreen, unsigned int x, unsigned int y) {
-		return Unique(new Window(title, width, height, fullscreen, x, y));
-	}
+	struct DisplayMode {
+		friend struct Display;
+		
+		const unsigned int index, width, height, refreshRate;
+		
+	private:
+		DisplayMode (unsigned int index, const SDL_DisplayMode &displayMode):
+		index(index),
+		width(displayMode.w),
+		height(displayMode.h),
+		refreshRate(displayMode.refresh_rate) {}
+		
+		std::string toString() const {
+			std::stringstream ret;
+			
+			ret  << width << "x" << height << "@" << refreshRate;
+			
+			return ret.str();
+		}
+	};
 	
-	Window::Window(const std::string &title, unsigned int width, unsigned int height, bool fullscreen, unsigned int x, unsigned int y):
-	_fullscreen(fullscreen) {
-		if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
-			throw false;
+	struct Display {
+		friend struct DisplayInfo;
+		
+		const unsigned int index;
+		std::string name;
+		
+		std::vector<DisplayMode> displayModes;
+		
+	private:
+		Display ( unsigned int index):
+		index(index) {
+			name = SDL_GetDisplayName(index);
+			
+			int numDisplayModes = SDL_GetNumDisplayModes(index);
+			
+			for (int i = 0; i < numDisplayModes; ++i) {
+				SDL_DisplayMode displayMode;
+				if (SDL_GetDisplayMode(index, i, &displayMode) != -1) {
+					displayModes.push_back(DisplayMode(i, displayMode));
+				}
+			}
 		}
 		
-		_window = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
+		std::string toString() const {
+			std::stringstream ret;
+			
+			ret << "Display '" << name << "'";
+			
+			auto numDisplayModes = displayModes.size(), i = 0ul;
+			for (auto &displayMode : displayModes) {
+				ret << "\n\t\t- (" << ++i << "/" << numDisplayModes << ") " << displayMode.toString();
+			}
+			
+			return ret.str();
+		}
+	};
+	
+	struct DisplayInfo {
+		friend Window;
+		
+		std::vector<Display> displays;
+		
+	private:
+		DisplayInfo() {
+			int numDisplays = SDL_GetNumVideoDisplays();
+			
+			for (int i = 0; i < numDisplays; ++i) {
+				displays.push_back(Display(i));
+			}
+		}
+		
+	public:
+		void print() const {
+			Game::log << "-- Displays:";
+			
+			auto numDisplays = displays.size(), i = 0ul;
+			for (auto &display : displays) {
+				Game::log << "\n\t+ (" << ++i << "/" << numDisplays << ") " << display.toString();
+			}
+			
+			Game::log << std::endl;
+		}
+	};
+	
+	DisplayInfo *displayInfo = nullptr;
+	
+	Window::Unique Window::Create(const std::string &title, Settings &settings, unsigned int x, unsigned int y) {
+		return Unique(new Window(title, settings, x, y));
+	}
+	
+	Window::Window(const std::string &title, Settings &settings, unsigned int x, unsigned int y):
+	_settings(settings) {
+		_fullscreen = _settings.fullscreen;
+		
+		if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
+			throw SDLVideoInitFailedException();
+		}
+		
+		if (!displayInfo) {
+			displayInfo = new DisplayInfo;
+		}
+		
+		displayInfo->print();
+		
+		_window = SDL_CreateWindow(title.c_str(), x, y, _settings.width, _settings.height, SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
 		
 		if (!_window) {
-			throw false;
+			throw WindowCreationFailedException();
 		}
 		
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -37,15 +134,22 @@ namespace JSLib {
 		
 		_context = SDL_GL_CreateContext(_window);
 		if(!_context) {
-			throw false;
+			throw OpenGLContextCreationFailedException();
 		}
 		
 		glbinding::Binding::initialize();
 		
-		glViewport(0, 0, width, height);
-		clearColor({.5f, .5f, .5f, 1.f});
+		Game::log << "OpenGL context created:\n";
+		Game::log << "\t" << glGetString(GL_RENDERER) << " " << glGetString(GL_VERSION) << "\n";
+		{
+			GLint major, minor;
+			glGetIntegerv(GL_MAJOR_VERSION, &major);
+			glGetIntegerv(GL_MINOR_VERSION, &minor);
+			Game::log << "\t Context version: " << major << "." << minor << std::endl;
+		}
 		
-		SDL_ShowWindow(_window);
+		glViewport(0, 0, _settings.width, _settings.height);
+		clearColor({.5f, .5f, .5f, 1.f});
 	}
 	
 	Window::~Window() {
