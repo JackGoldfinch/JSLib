@@ -27,6 +27,7 @@
 		8FBD86291D01FFB500C1F40C /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Audio.cpp; sourceTree = "<group>"; };
 		8FBD862A1D01FFB500C1F40C /* Audio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Audio.hpp; sourceTree = "<group>"; };
 		8FBD862C1D01FFE500C1F40C /* JSLib_FFMPEG.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLib_FFMPEG.hpp; sourceTree = "<group>"; };
+		8FBD862D1D01FFE500C1F40C /* JSLib_GLM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLib_GLM.hpp; sourceTree = "<group>"; };
 		8FBD862E1D02005D00C1F40C /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		8FBD86301D02012100C1F40C /* JSLib_OpenAL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_OpenAL.hpp; sourceTree = "<group>"; };
 		8FCC0CED1CDCAD4800F78FEE /* JSLib_Export.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_Export.hpp; sourceTree = "<group>"; };
@@ -108,6 +109,7 @@
 				8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */,
 				8FBD86301D02012100C1F40C /* JSLib_OpenAL.hpp */,
 				8FBD862C1D01FFE500C1F40C /* JSLib_FFMPEG.hpp */,
+				8FBD862D1D01FFE500C1F40C /* JSLib_GLM.hpp */,
 				8FE55E781CDC8E1A00321D58 /* JSLib.cpp */,
 				8FE55E791CDC8E1A00321D58 /* JSLib.hpp */,
 				8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */,
