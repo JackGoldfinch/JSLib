@@ -22,8 +22,13 @@ namespace JSLib { namespace Util {
 		
 		_file = new std::fstream(file.c_str(), std::ios::out);
 		if ((! _file) || (! _file->is_open())) {
+			if (_file) {
+				delete _file;
+			}
+			
 			_file = nullptr;
-			throw false;
+			
+			*this << "Could not create logfile at " << file << "." << std::endl;
 		}
 	}
 	

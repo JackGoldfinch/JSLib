@@ -56,14 +56,16 @@ namespace JSLib { namespace Util {
 		
 		template <class T>
 		Logger &operator<<(const T &t) {
+			std::lock_guard<std::mutex> lock (_mutex);
+			
 			getStringStream() << t;
 			
 			return *this;
 		}
 		
 		Logger &operator<<(stream_function func) {
-			_mutex.lock();
-
+			std::lock_guard<std::mutex> lock (_mutex);
+			
 			auto &stringstream = getStringStream();
 
 			if (func == (stream_function)std::endl) {
@@ -83,8 +85,6 @@ namespace JSLib { namespace Util {
 				func(stringstream);
 			}
 			
-			_mutex.unlock();
-
 			return *this;
 		}
 		
