@@ -306,6 +306,7 @@
 					"$(Developer_LibraryPath)/libSDL2.dylib",
 					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
 					"$(Developer_LibraryPath)/libglbinding.dylib",
+					"$(Developer_LibraryPath)/libboost_filesystem-mt.dylib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -326,6 +327,7 @@
 					"$(Developer_LibraryPath)/libSDL2.dylib",
 					"$(Developer_LibraryPath)/libboost_system-mt.dylib",
 					"$(Developer_LibraryPath)/libglbinding.dylib",
+					"$(Developer_LibraryPath)/libboost_filesystem-mt.dylib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
