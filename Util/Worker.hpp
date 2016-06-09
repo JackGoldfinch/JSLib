@@ -59,6 +59,24 @@ namespace JSLib { namespace Util {
 			_bgThread.post(handler);
 		}
 		
+		template <class T>
+		void postOnBackgroundThread ( T &&handler, void (*completionHandler) ( typename std::result_of<T()>::type result ) ) {
+			_bgThread.post([this, &handler, completionHandler]() {
+				auto result = handler();
+				
+				_mainThread.post ( std::bind ( completionHandler, result ) );
+			});
+		}
+		
+		template <class T>
+		void postOnBackgroundThread ( T &&handler, void (*completionHandler)() ) {
+			_bgThread.post([this, &handler, completionHandler]() {
+				handler();
+				
+				_mainThread.post ( completionHandler );
+			});
+		}
+		
 		void reset();
 		
 		bool hasWork() const {
