@@ -93,8 +93,8 @@ namespace JSLib {
 		return 0;
 	}
 	
-		Game::Game(Settings &settings):
-		_running(true) {
+	Game::Game(Settings &settings):
+	_running(true) {
 		log << "Game: Starting..." << std::endl;
 		
 		worker.addThreads();
