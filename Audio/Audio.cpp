@@ -1,9 +1,10 @@
-/*
- * Audio.cpp
- *
- *  Created on: 29.05.2016
- *      Author: johannes
- */
+//
+//  Audio.cpp
+//  JSLib
+//
+//  Created by Johannes Stieglitz on 29.05.16.
+//  Copyright © 2016 Johannes Stieglitz. All rights reserved.
+//
 
 #define __JSL_AUDIO_AUDIO_CPP
 

@@ -8,7 +8,9 @@
 
 #include "Logger.hpp"
 
-namespace JSLib { namespace Util {
+namespace JSLib {
+namespace Util {
+	
 	const char *Logger::divider = ": ";
 	
 	Logger::Logger() {
@@ -42,4 +44,6 @@ namespace JSLib { namespace Util {
 			_file = nullptr;
 		}
 	}
-}}
+	
+}
+}

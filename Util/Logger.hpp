@@ -26,7 +26,9 @@ namespace fs = boost::filesystem;
 #include <boost/date_time/posix_time/posix_time.hpp>
 namespace pt = boost::posix_time;
 
-namespace JSLib { namespace Util {
+namespace JSLib {
+namespace Util {
+	
 	class JSLIB_EXPORT Logger {
 	public:
 		typedef std::map<std::thread::id, std::stringstream> StringStreamMap;
@@ -112,6 +114,8 @@ namespace JSLib { namespace Util {
 			return stream.str();
 		}
 	};
-}}
+	
+}
+}
 
 #endif // #ifndef __JSLIB_UTIL_LOGGER_HPP
