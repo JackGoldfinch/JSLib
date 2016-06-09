@@ -13,18 +13,20 @@
 #include "StopWatch.hpp"
 
 namespace JSLib { namespace Util {
-	void Worker::RunBackgroundThread (Service *service) {
+	void Worker::RunBackgroundThread (Worker *worker) {
 		auto threadId = std::this_thread::get_id();
 		
 		StopWatch stopWatch;
 		
 		Game::log << "-- Started background thread #" << threadId << "." << std::endl;
 		
+		worker->_threadCount++;
+		
 		while (true) {
 			try {
 				boost::system::error_code ec;
 
-				service->run(ec);
+				worker->_bgThread.run(ec);
 
 				if (ec) {
 					Game::log << "-- Error on background thread #" << threadId << ": '" << ec << "'." << std::endl;
@@ -37,7 +39,7 @@ namespace JSLib { namespace Util {
 				Game::log << "-- Exception on background thread #" << threadId << "." << std::endl;
 			}
 			
-			service->reset();
+			worker->_bgThread.reset();
 			
 			Game::log << "-- Retarted background thread #" << threadId << "." << std::endl;
 		}
@@ -47,8 +49,8 @@ namespace JSLib { namespace Util {
 	
 	Worker::Worker() :
 	_mainThreadWork(new Work (_mainThread)),
-	_bgThreadWork(new Work (_bgThread)) {
-		
+	_bgThreadWork(new Work (_bgThread)),
+	_threadCount(0) {
 	}
 	
 	Worker::~Worker() {
@@ -66,7 +68,11 @@ namespace JSLib { namespace Util {
 	
 	void Worker::addThreads(unsigned int count) {
 		for (unsigned int i = 0; i < count; ++i) {
-			_threads.push_back(std::unique_ptr<std::thread>(new std::thread(RunBackgroundThread, &_bgThread)));
+			_threads.push_back(std::unique_ptr<std::thread>(new std::thread(RunBackgroundThread, this)));
+		}
+		
+		while ( _threadCount.load() != count ) {
+			std::this_thread::yield();
 		}
 	}
 	

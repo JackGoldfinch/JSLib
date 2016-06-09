@@ -27,7 +27,7 @@ namespace JSLib { namespace Util {
 		typedef std::unique_ptr<Work> UniqueWork;
 		
 	protected:
-		static void RunBackgroundThread (Service *service);
+		static void RunBackgroundThread (Worker *worker);
 
 		Service _mainThread;
 		UniqueWork _mainThreadWork;
@@ -36,6 +36,8 @@ namespace JSLib { namespace Util {
 		UniqueWork _bgThreadWork;
 		
 		std::vector<std::unique_ptr<std::thread>> _threads;
+		
+		std::atomic<unsigned int> _threadCount;
 		
 	public:
 		Worker();
