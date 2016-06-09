@@ -107,7 +107,8 @@ namespace JSLib {
 	}
 	
 	Window::Window(const std::string &title, Settings &settings, unsigned int x, unsigned int y):
-	_settings(settings) {
+	_settings(settings),
+	Util::System ( "Window" ) {
 		_fullscreen = _settings.fullscreen;
 		
 		if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
@@ -150,9 +151,13 @@ namespace JSLib {
 		
 		glViewport(0, 0, _settings.width, _settings.height);
 		clearColor({.5f, .5f, .5f, 1.f});
+		
+		started();
 	}
 	
 	Window::~Window() {
+		stopping();
+		
 		SDL_HideWindow(_window);
 		
 		SDL_GL_DeleteContext(_context);

@@ -13,10 +13,12 @@
 
 #include "../JSLib_OpenAL.hpp"
 
+#include "../Util/System.hpp"
+
 namespace JSLib {
 namespace Audio {
 
-class JSLIB_EXPORT System {
+class JSLIB_EXPORT System : public Util::System {
 protected:
 	ALCdevice *_device;
 	ALCcontext *_context;

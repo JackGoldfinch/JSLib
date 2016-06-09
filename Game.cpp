@@ -109,7 +109,7 @@ namespace JSLib {
 
 		_audioSystem = new AudioSystem;
 		
-		log << "Game: Starting... OK." << std::endl;
+		log << "Game: Starting... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
 	
 	Game::~Game() {
@@ -123,7 +123,7 @@ namespace JSLib {
 		
 		worker.reset();
 		
-		log << "Game: Stopping... OK." << std::endl;
+		log << "Game: Stopping... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
 	
 	void Game::loop() {

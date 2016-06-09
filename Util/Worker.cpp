@@ -8,13 +8,15 @@
 
 #include "Worker.hpp"
 
-#include "Logger.hpp"
-
 #include "../Game.hpp"
+
+#include "StopWatch.hpp"
 
 namespace JSLib { namespace Util {
 	void Worker::RunBackgroundThread (Service *service) {
 		auto threadId = std::this_thread::get_id();
+		
+		StopWatch stopWatch;
 		
 		Game::log << "-- Started background thread #" << threadId << "." << std::endl;
 		
@@ -40,7 +42,7 @@ namespace JSLib { namespace Util {
 			Game::log << "-- Retarted background thread #" << threadId << "." << std::endl;
 		}
 		
-		Game::log << "-- Finished background thread #" << threadId << "." << std::endl;
+		Game::log << "-- Finished background thread #" << threadId << ". (+" << stopWatch() << ")" << std::endl;
 	}
 	
 	Worker::Worker() :
