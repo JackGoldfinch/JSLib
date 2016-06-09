@@ -41,7 +41,7 @@ namespace JSLib { namespace Util {
 			
 			worker->_bgThread.reset();
 			
-			Game::log << "-- Retarted background thread #" << threadId << "." << std::endl;
+			Game::log << "-- Restarted background thread #" << threadId << "." << std::endl;
 		}
 		
 		Game::log << "-- Finished background thread #" << threadId << ". (+" << stopWatch() << ")" << std::endl;
