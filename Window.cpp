@@ -64,9 +64,9 @@ namespace JSLib {
 			
 			ret << "Display '" << name << "'";
 			
-			auto numDisplayModes = displayModes.size(), i = 0ul;
+			int i = 1;
 			for (auto &displayMode : displayModes) {
-				ret << "\n\t\t- (" << ++i << "/" << numDisplayModes << ") " << displayMode.toString();
+				ret << "\n\t\t- (" << i++ << ") " << displayMode.toString();
 			}
 			
 			return ret.str();
@@ -91,9 +91,9 @@ namespace JSLib {
 		void print() const {
 			Game::log << "-- Displays:";
 			
-			auto numDisplays = displays.size(), i = 0ul;
+			int i = 1;
 			for (auto &display : displays) {
-				Game::log << "\n\t+ (" << ++i << "/" << numDisplays << ") " << display.toString();
+				Game::log << "\n\t+ (" << i++ << ") " << display.toString();
 			}
 			
 			Game::log << std::endl;
@@ -140,24 +140,30 @@ namespace JSLib {
 		
 		glbinding::Binding::initialize();
 		
-		Game::log << "-- OpenGL context created:\n";
-		Game::log << "\t" << glGetString(GL_VENDOR) << "(" << glGetString(GL_RENDERER) << " " << glGetString(GL_VERSION) << ")\n";
 		{
+			Game::log << "-- OpenGL context created:\n";
+			Game::log << "\t" << glGetString(GL_VENDOR) << "(" << glGetString(GL_RENDERER) << " " << glGetString(GL_VERSION) << ")\n";
+			
 			GLint major, minor;
 			glGetIntegerv(GL_MAJOR_VERSION, &major);
 			glGetIntegerv(GL_MINOR_VERSION, &minor);
 			Game::log << "\tContext version: " << major << "." << minor << "\n";
-		}
-		Game::log << "\tShading language version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-		{
+			
+			Game::log << "\tShading language version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+			
 			GLint numExtensions;
 			glGetIntegerv(GL_NUM_EXTENSIONS, &numExtensions);
 			Game::log << "\t+ Extensions:";
-			for (int i = 0; i < numExtensions; ++i) {
-				Game::log << "\n\t\t- (" << i + 1 << "/" << numExtensions << ") " << glGetStringi(GL_EXTENSIONS, i);
+			if ( numExtensions ) {
+				for (int i = 0; i < numExtensions; ++i) {
+					Game::log << "\n\t\t- (" << i + 1 << ") " << glGetStringi(GL_EXTENSIONS, i);
+				}
+			} else {
+				Game::log << "\n\t\tNone.";
 			}
+			
+			Game::log << std::endl;
 		}
-		Game::log << std::endl;
 		
 		glViewport(0, 0, _settings.width, _settings.height);
 		clearColor({.5f, .5f, .5f, 1.f});
