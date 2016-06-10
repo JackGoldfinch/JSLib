@@ -26,8 +26,10 @@
 #endif
 
 namespace glm {
-typedef vec3 color3;
-typedef vec4 color4;
-}
+	
+	typedef vec3 color3;
+	typedef vec4 color4;
+	
+} // namespace glm
 
 #endif /* __JSLIB_GLM_HPP */

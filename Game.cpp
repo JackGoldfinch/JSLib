@@ -19,6 +19,7 @@
 #include <SDL2/SDL.h>
 
 namespace JSLib {
+	
 	std::unique_ptr<Game> Game::_game;
 	
 	Util::Logger Game::log;
@@ -155,4 +156,5 @@ namespace JSLib {
 	void Game::render() {
 		_window->swap();
 	}
-}
+		
+} // namespace JSLib
