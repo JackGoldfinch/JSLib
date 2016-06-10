@@ -17,6 +17,7 @@
 		8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CF41CDCB6D800F78FEE /* Window.cpp */; };
 		8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE55E781CDC8E1A00321D58 /* JSLib.cpp */; };
 		8FE8998F1D06B5E500680BFB /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE8998D1D06B5E500680BFB /* System.cpp */; };
+		8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE899901D0AE65E00680BFB /* Animation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,8 @@
 		8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLibPriv.hpp; sourceTree = "<group>"; };
 		8FE8998D1D06B5E500680BFB /* System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
 		8FE8998E1D06B5E500680BFB /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
+		8FE899901D0AE65E00680BFB /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		8FE899911D0AE65E00680BFB /* Animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Animation.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				8F125CF11D05F70900DDD355 /* StopWatch.hpp */,
 				8FE8998D1D06B5E500680BFB /* System.cpp */,
 				8FE8998E1D06B5E500680BFB /* System.hpp */,
+				8FE899901D0AE65E00680BFB /* Animation.cpp */,
+				8FE899911D0AE65E00680BFB /* Animation.hpp */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 			files = (
 				8FE8998F1D06B5E500680BFB /* System.cpp in Sources */,
 				8FBD862B1D01FFB500C1F40C /* Audio.cpp in Sources */,
+				8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
 				8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */,
