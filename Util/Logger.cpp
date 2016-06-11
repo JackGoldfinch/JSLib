@@ -8,9 +8,13 @@
 
 #include "Logger.hpp"
 
-namespace JSLib { namespace Util {
+namespace JSLib {
+namespace Util {
+	
+	const char *Logger::divider = ": ";
+	
 	Logger::Logger() {
-		_intermediateStringStream.imbue(std::locale(std::locale(""), new pt::time_facet("%Y/%m/%d %H:%M:%S%F")));
+		_intermediateStringStream.imbue(std::locale(std::locale(""), new pt::time_facet("%Y/%m/%d %H:%M:%S.%f")));
 	}
 
 	Logger::~Logger() {
@@ -40,4 +44,6 @@ namespace JSLib { namespace Util {
 			_file = nullptr;
 		}
 	}
-}}
+	
+}
+}

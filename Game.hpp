@@ -57,6 +57,8 @@ namespace JSLib {
 	protected:
 		static std::unique_ptr<Game> _game;
 		
+		Util::StopWatch _stopWatch;
+		
 		bool _running;
 		
 		Window::Unique _window;

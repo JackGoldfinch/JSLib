@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F125CF01D05F70900DDD355 /* StopWatch.cpp */; };
 		8FBA43C91CE0A21300A9E9F0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */; };
 		8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */; };
 		8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */; };
@@ -15,9 +16,13 @@
 		8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CEE1CDCAFE200F78FEE /* Game.cpp */; };
 		8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC0CF41CDCB6D800F78FEE /* Window.cpp */; };
 		8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE55E781CDC8E1A00321D58 /* JSLib.cpp */; };
+		8FE8998F1D06B5E500680BFB /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE8998D1D06B5E500680BFB /* System.cpp */; };
+		8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE899901D0AE65E00680BFB /* Animation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F125CF01D05F70900DDD355 /* StopWatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StopWatch.cpp; sourceTree = "<group>"; };
+		8F125CF11D05F70900DDD355 /* StopWatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StopWatch.hpp; sourceTree = "<group>"; };
 		8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_OpenGL.hpp; sourceTree = "<group>"; };
 		8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
@@ -39,6 +44,10 @@
 		8FE55E781CDC8E1A00321D58 /* JSLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSLib.cpp; sourceTree = "<group>"; };
 		8FE55E791CDC8E1A00321D58 /* JSLib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLib.hpp; sourceTree = "<group>"; };
 		8FE55E7A1CDC8E1A00321D58 /* JSLibPriv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSLibPriv.hpp; sourceTree = "<group>"; };
+		8FE8998D1D06B5E500680BFB /* System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
+		8FE8998E1D06B5E500680BFB /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
+		8FE899901D0AE65E00680BFB /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		8FE899911D0AE65E00680BFB /* Animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Animation.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +70,12 @@
 				8FBA43CD1CE0A88100A9E9F0 /* Logger.hpp */,
 				8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */,
 				8FBA43D01CE0ED8000A9E9F0 /* Worker.hpp */,
+				8F125CF01D05F70900DDD355 /* StopWatch.cpp */,
+				8F125CF11D05F70900DDD355 /* StopWatch.hpp */,
+				8FE8998D1D06B5E500680BFB /* System.cpp */,
+				8FE8998E1D06B5E500680BFB /* System.hpp */,
+				8FE899901D0AE65E00680BFB /* Animation.cpp */,
+				8FE899911D0AE65E00680BFB /* Animation.hpp */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -194,9 +209,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FE8998F1D06B5E500680BFB /* System.cpp in Sources */,
 				8FBD862B1D01FFB500C1F40C /* Audio.cpp in Sources */,
+				8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
+				8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */,
 				8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */,
 				8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */,
 				8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */,

@@ -27,7 +27,7 @@ namespace JSLib { namespace Util {
 		typedef std::unique_ptr<Work> UniqueWork;
 		
 	protected:
-		static void RunBackgroundThread (Service *service);
+		static void RunBackgroundThread (Worker *worker);
 
 		Service _mainThread;
 		UniqueWork _mainThreadWork;
@@ -36,6 +36,8 @@ namespace JSLib { namespace Util {
 		UniqueWork _bgThreadWork;
 		
 		std::vector<std::unique_ptr<std::thread>> _threads;
+		
+		std::atomic<unsigned int> _threadCount;
 		
 	public:
 		Worker();
@@ -55,6 +57,24 @@ namespace JSLib { namespace Util {
 		template <class T>
 		void postOnBackgroundThread(T &&handler) {
 			_bgThread.post(handler);
+		}
+		
+		template <class T>
+		void postOnBackgroundThread ( T &&handler, void (*completionHandler) ( typename std::result_of<T()>::type result ) ) {
+			_bgThread.post([this, &handler, completionHandler]() {
+				auto result = handler();
+				
+				_mainThread.post ( std::bind ( completionHandler, result ) );
+			});
+		}
+		
+		template <class T>
+		void postOnBackgroundThread ( T &&handler, void (*completionHandler)() ) {
+			_bgThread.post([this, &handler, completionHandler]() {
+				handler();
+				
+				_mainThread.post ( completionHandler );
+			});
 		}
 		
 		void reset();

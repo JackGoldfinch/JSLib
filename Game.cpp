@@ -16,9 +16,12 @@
 
 #include "Game.hpp"
 
+#include "Util/Animation.hpp"
+
 #include <SDL2/SDL.h>
 
 namespace JSLib {
+	
 	std::unique_ptr<Game> Game::_game;
 	
 	Util::Logger Game::log;
@@ -93,8 +96,8 @@ namespace JSLib {
 		return 0;
 	}
 	
-		Game::Game(Settings &settings):
-		_running(true) {
+	Game::Game(Settings &settings):
+	_running(true) {
 		log << "Game: Starting..." << std::endl;
 		
 		worker.addThreads();
@@ -109,7 +112,7 @@ namespace JSLib {
 
 		_audioSystem = new AudioSystem;
 		
-		log << "Game: Starting... OK." << std::endl;
+		log << "Game: Starting... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
 	
 	Game::~Game() {
@@ -123,7 +126,7 @@ namespace JSLib {
 		
 		worker.reset();
 		
-		log << "Game: Stopping... OK." << std::endl;
+		log << "Game: Stopping... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
 	
 	void Game::loop() {
@@ -133,6 +136,8 @@ namespace JSLib {
 		
 		while (_running) {
 			poll();
+			
+			Util::Animations::Forward();
 			
 			render();
 			
@@ -155,4 +160,5 @@ namespace JSLib {
 	void Game::render() {
 		_window->swap();
 	}
-}
+		
+} // namespace JSLib

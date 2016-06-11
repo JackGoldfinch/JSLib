@@ -36,8 +36,10 @@ using namespace gl;
 
 #include "JSLib_GLM.hpp"
 
+#include "Util/System.hpp"
+
 namespace JSLib {
-	class JSLIB_EXPORT Window {
+	class JSLIB_EXPORT Window : Util::System {
 	public:
 		struct SDLVideoInitFailedException : public std::runtime_error {
 			SDLVideoInitFailedException() : std::runtime_error("SDL system 'video' failed to initialise.") {}
@@ -82,6 +84,10 @@ namespace JSLib {
 		}
 		
 		void toggleFullscreen();
+		
+		void setTitle ( const std::string &title ) {
+			SDL_SetWindowTitle ( _window, title.c_str() );
+		}
 
 		void clearColor (const glm::color4 &clearColor);
 	};

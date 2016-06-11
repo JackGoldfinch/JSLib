@@ -1,9 +1,10 @@
-/*
- * Audio.hpp
- *
- *  Created on: 29.05.2016
- *      Author: johannes
- */
+//
+//  Audio.cpp
+//  JSLib
+//
+//  Created by Johannes Stieglitz on 29.05.16.
+//  Copyright © 2016 Johannes Stieglitz. All rights reserved.
+//
 
 #pragma once
 #ifndef AUDIO_AUDIO_HPP_
@@ -13,22 +14,28 @@
 
 #include "../JSLib_OpenAL.hpp"
 
+#include "../Util/System.hpp"
+
 namespace JSLib {
 namespace Audio {
 
-class JSLIB_EXPORT System {
-protected:
-	ALCdevice *_device;
-	ALCcontext *_context;
+	class JSLIB_EXPORT System : public Util::System {
+	protected:
+		static std::unique_ptr<std::vector<ALCchar*>> _devices;
 
-public:
-	System();
-	~System();
-};
+		static void EnumerateDevices();
+
+		ALCdevice *_device;
+		ALCcontext *_context;
+
+	public:
+		System ( unsigned int index = 0 );
+		~System();
+	};
 
 } /* namespace Audio */
 
-typedef Audio::System AudioSystem;
+	typedef Audio::System AudioSystem;
 
 } /* namespace JSLib */
 
