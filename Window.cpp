@@ -107,8 +107,8 @@ namespace JSLib {
 	}
 	
 	Window::Window(const std::string &title, Settings &settings, unsigned int x, unsigned int y):
-	_settings(settings),
-	Util::System ( "Window" ) {
+	Util::System ( "Window" ),
+	_settings(settings) {
 		_fullscreen = _settings.fullscreen;
 		
 		if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
