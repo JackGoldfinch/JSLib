@@ -12,6 +12,8 @@
 
 #include "JSLib_Export.hpp"
 
+#include "Util/Animation.hpp"
+
 #include "Game.hpp"
 #include "Window.hpp"
 

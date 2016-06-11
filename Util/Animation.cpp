@@ -11,12 +11,25 @@
 namespace JSLib {
 namespace Util {
 	
-	void test() {
-		Animatable<double> val;
+	std::set<Animations*> Animations::_animations;
+	std::set<Animations*> Animations::_removeAnimations;
+	
+	void Animations::Forward() {
+		auto now = Clock::now();
 		
-		val = 2.0;
+		for ( auto animation : _animations ) {
+			animation->forward ( now );
+		}
 		
-		double v = val;
+		if ( ! ( _animations.empty() && _removeAnimations.empty() ) ) {
+			for ( auto animation : _removeAnimations ) {
+				_animations.erase ( animation );
+				
+				delete animation;
+			}
+		}
+		
+		_removeAnimations.clear();
 	}
 	
 }

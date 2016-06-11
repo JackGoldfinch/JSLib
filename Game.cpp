@@ -16,6 +16,8 @@
 
 #include "Game.hpp"
 
+#include "Util/Animation.hpp"
+
 #include <SDL2/SDL.h>
 
 namespace JSLib {
@@ -134,6 +136,8 @@ namespace JSLib {
 		
 		while (_running) {
 			poll();
+			
+			Util::Animations::Forward();
 			
 			render();
 			
