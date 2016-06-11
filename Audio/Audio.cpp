@@ -15,44 +15,65 @@
 namespace JSLib {
 namespace Audio {
 
-	System::System():
+	std::unique_ptr<std::vector<ALCchar*>> System::_devices (nullptr);
+
+	void System::EnumerateDevices() {
+		if (!_devices) {
+			_devices.reset(new std::vector<ALCchar*>);
+
+			Game::log << "-- Searching for OpenAL devices with ALC:\n";
+
+			ALint major, minor;
+			alcGetIntegerv(nullptr, ALC_MAJOR_VERSION, 1, &major);
+			alcGetIntegerv(nullptr, ALC_MINOR_VERSION, 1, &minor);
+			Game::log << "\tALC version: " << major << "." << minor << "\n";
+
+			Game::log << "\t+ Devices:";
+
+			if (alcIsExtensionPresent(nullptr, "ALC_enumeration_EXT") == ALC_TRUE) {
+				const ALCchar *devices = nullptr;
+
+				int i = 1;
+				if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATE_ALL_EXT") == ALC_TRUE) {
+					devices = alcGetString(nullptr, ALC_ALL_DEVICES_SPECIFIER);
+
+					auto device = alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
+					Game::log << "\n\t\t- (" << i++ << ") " << device << " (default)";
+					_devices->push_back((ALCchar*)device);
+				} else {
+					devices = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
+				}
+
+				while (devices && devices[0] != (char)0x00) {
+					Game::log << "\n\t\t- (" << i++ << ") " << devices;
+
+					_devices->push_back((ALCchar*)devices);
+
+					devices += strlen(devices) + 1;
+				}
+			}
+
+			Game::log << std::endl;
+		}
+	}
+
+	System::System ( unsigned int index ):
 	Util::System ( "Audio" ) {
 		/*if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0) {
 
 		}*/
 		
-		{
-			Game::log << "-- Initialising OpenAL with ALC:\n";
-			
-			ALint major, minor;
-			alcGetIntegerv(_device, ALC_MAJOR_VERSION, 1, &major);
-			alcGetIntegerv(_device, ALC_MINOR_VERSION, 1, &minor);
-			Game::log << "\tALC version: " << major << "." << minor << "\n";
-			
-			if (alcIsExtensionPresent(nullptr, "ALC_enumeration_EXT") == ALC_TRUE) {
-				const ALCchar *devices = nullptr;
-				
-				if (alcIsExtensionPresent(nullptr, "ALC_enumerate_all_EXT") == ALC_TRUE) {
-					devices = alcGetString(nullptr, ALC_ALL_DEVICES_SPECIFIER);
-				} else {
-					devices = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
-				}
-				
-				Game::log << "\t+ Devices:";
-				if (devices) {
-					std::stringstream ss(devices);
-					std::string line;
-					int i = 1;
-					while (std::getline(ss, line, '\0')) {
-						Game::log << "\n\t\t- (" << i++ << ") " << line;
-					}
-				}
-			}
-			
-			Game::log << std::endl;
+		EnumerateDevices();
+
+		ALCchar *deviceName = nullptr;
+
+		if (_devices->size()) {
+			deviceName = _devices->at(index);
 		}
 
-		_device = alcOpenDevice(nullptr);
+		Game::log << "-- Opening OpenAL device '" << deviceName << "'." << std::endl;
+
+		_device = alcOpenDevice(deviceName);
 		
 		if(!_device) {
 			throw false;
@@ -66,8 +87,12 @@ namespace Audio {
 		alcMakeContextCurrent(_context);
 		
 		{
-			Game::log << "-- OpenAL context created on device '" << alcGetString(_device, ALC_DEVICE_SPECIFIER) << "':\n";
-			Game::log << "\t" << alGetString(AL_VENDOR) << "(" << alGetString(AL_RENDERER) << " " << alGetString(AL_VERSION) << ")\n";
+			if(!deviceName || true) {
+				deviceName = (char*)alcGetString(_device, ALC_DEVICE_SPECIFIER);
+			}
+
+			Game::log << "-- OpenAL context created on device '" << deviceName << "':\n";
+			Game::log << "\t" << alGetString(AL_VENDOR) << "(" << alGetString(AL_RENDERER) << ", " << alGetString(AL_VERSION) << ")\n";
 			
 			Game::log << "\t+ Extensions:";
 			auto alExtensions = alGetString(AL_EXTENSIONS);

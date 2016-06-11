@@ -142,7 +142,7 @@ namespace JSLib {
 		
 		{
 			Game::log << "-- OpenGL context created:\n";
-			Game::log << "\t" << glGetString(GL_VENDOR) << "(" << glGetString(GL_RENDERER) << " " << glGetString(GL_VERSION) << ")\n";
+			Game::log << "\t" << glGetString(GL_VENDOR) << "(" << glGetString(GL_RENDERER) << ", " << glGetString(GL_VERSION) << ")\n";
 			
 			GLint major, minor;
 			glGetIntegerv(GL_MAJOR_VERSION, &major);

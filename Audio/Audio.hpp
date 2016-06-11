@@ -21,11 +21,15 @@ namespace Audio {
 
 	class JSLIB_EXPORT System : public Util::System {
 	protected:
+		static std::unique_ptr<std::vector<ALCchar*>> _devices;
+
+		static void EnumerateDevices();
+
 		ALCdevice *_device;
 		ALCcontext *_context;
 
 	public:
-		System();
+		System ( unsigned int index = 0 );
 		~System();
 	};
 
