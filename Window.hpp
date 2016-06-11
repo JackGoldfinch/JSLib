@@ -84,6 +84,10 @@ namespace JSLib {
 		}
 		
 		void toggleFullscreen();
+		
+		void setTitle ( const std::string &title ) {
+			SDL_SetWindowTitle ( _window, title.c_str() );
+		}
 
 		void clearColor (const glm::color4 &clearColor);
 	};
