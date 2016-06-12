@@ -28,27 +28,26 @@ namespace Util {
 	typedef std::chrono::time_point<Clock> TimePoint;
 	typedef std::chrono::milliseconds Duration;
 	
-	class Animations {
-		template <class T> friend class Animatable;
-		
+	class Animatables {
 	protected:
-		static std::set<Animations*> _animations;
-		static std::set<Animations*> _removeAnimations;
+		static std::set<Animatables*> _animatables;
+		static std::set<Animatables*> _finishedAnimatables;
 		
-		virtual void forward ( const TimePoint &now) = 0;
+		virtual void progress ( const TimePoint &now ) = 0;
+		virtual void cleanup() = 0;
 		
 	public:
-		virtual ~Animations(){}
+		static void Progress();
 		
-		static void Forward();
+		virtual ~Animatables(){}
 	};
 	
-	template <class T>
-	class Animatable {
+	template <typename T>
+	class Animatable : public Animatables {
 		typedef T ValueType;
 		
 	protected:
-		class Animation : public Animations {
+		class Animation {
 		protected:
 			Animatable<ValueType> &_animatable;
 			
@@ -72,7 +71,7 @@ namespace Util {
 				//std::cout << "Animation destructed." << std::endl;
 			}
 			
-			virtual void forward ( const TimePoint &now ) {
+			void progress ( const TimePoint &now ) {
 				auto deltaTime = std::chrono::duration_cast<Duration>(now - _startTimePoint);
 				
 				auto completion = (double)deltaTime.count() / _duration.count();
@@ -81,12 +80,14 @@ namespace Util {
 				_animatable._value = _startValue + ( _delta * completion );
 				
 				if ( completion >= 1.f ) {
-					Animations::_removeAnimations.insert ( this );
+					_finishedAnimatables.insert ( &_animatable );
 				}
 			}
 		};
 		
 		ValueType _value;
+		
+		std::unique_ptr<Animation> _animation;
 		
 	public:
 		Animatable(){}
@@ -94,8 +95,25 @@ namespace Util {
 		Animatable ( const ValueType &value ):
 		_value ( value ) {}
 		
+		template <typename ... Args>
+		Animatable ( Args ... args ) {}
+		
 		void animate ( const ValueType &target, const Duration duration ) {
-			Animations::_animations.insert ( new Animation ( *this, target, duration ) );
+			_animation.reset ( new Animation ( *this, target, duration ) );
+			
+			Animatables::_animatables.insert ( this );
+		}
+		
+		virtual void progress ( const TimePoint &now ) {
+			if ( _animation ) {
+				_animation->progress ( now );
+			}
+		}
+		
+		virtual void cleanup() {
+			_animatables.erase ( this );
+			
+			_animation.reset();
 		}
 		
 		operator ValueType() {
@@ -127,7 +145,41 @@ namespace Util {
 		ValueType operator-= ( const ValueType &value) {
 			return _value -= value;
 		}
+		
+		ValueType operator*() const {
+			return _value;
+		}
 	};
+	
+	template <> template <>
+	Animatable<glm::dvec2>::Animatable ( GLdouble x, GLdouble y ) {
+		_value = { x, y };
+	}
+	
+	template <> template <>
+	Animatable<glm::dvec3>::Animatable ( GLdouble x, GLdouble y, GLdouble z ) {
+		_value = { x, y, z };
+	}
+	
+	template <> template <>
+	Animatable<glm::dvec4>::Animatable ( GLdouble x, GLdouble y, GLdouble z, GLdouble w ) {
+		_value = { x, y, z, w };
+	}
+	
+	template <> template <>
+	Animatable<glm::vec2>::Animatable ( GLfloat x, GLfloat y ) {
+		_value = { x, y };
+	}
+	
+	template <> template <>
+	Animatable<glm::vec3>::Animatable ( GLfloat x, GLfloat y, GLfloat z ) {
+		_value = { x, y, z };
+	}
+	
+	template <> template <>
+	Animatable<glm::vec4>::Animatable ( GLfloat x, GLfloat y, GLfloat z, GLfloat w ) {
+		_value = { x, y, z, w };
+	}
 	
 }
 	
@@ -144,6 +196,8 @@ namespace Util {
 	typedef Util::Animatable<glm::dvec2> Advec2;
 	typedef Util::Animatable<glm::dvec3> Advec3;
 	typedef Util::Animatable<glm::dvec4> Advec4;
+	
+	std::ostream &operator<< ( std::ostream &stream, const Advec3 &vec );
 	
 }
 

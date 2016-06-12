@@ -137,7 +137,7 @@ namespace JSLib {
 		while (_running) {
 			poll();
 			
-			Util::Animations::Forward();
+			Util::Animatables::Progress();
 			
 			render();
 			

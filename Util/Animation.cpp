@@ -11,26 +11,30 @@
 namespace JSLib {
 namespace Util {
 	
-	std::set<Animations*> Animations::_animations;
-	std::set<Animations*> Animations::_removeAnimations;
+	std::set<Animatables*> Animatables::_animatables;
+	std::set<Animatables*> Animatables::_finishedAnimatables;
 	
-	void Animations::Forward() {
+	void Animatables::Progress() {
 		auto now = Clock::now();
 		
-		for ( auto animation : _animations ) {
-			animation->forward ( now );
+		for ( auto animatable : _animatables ) {
+			animatable->progress ( now );
 		}
 		
-		if ( ! ( _animations.empty() && _removeAnimations.empty() ) ) {
-			for ( auto animation : _removeAnimations ) {
-				_animations.erase ( animation );
-				
-				delete animation;
-			}
+		for ( auto animatable : _finishedAnimatables ) {
+			animatable->cleanup();
 		}
 		
-		_removeAnimations.clear();
+		_finishedAnimatables.clear();
 	}
 	
 }
+	
+	std::ostream &operator<< ( std::ostream &stream, const Advec3 &vec ) {
+		const auto &v = *vec;
+		stream << "dvec3: r" << v.r << " g" << v.g << " b" << v.b;
+		
+		return stream;
+	}
+	
 }
