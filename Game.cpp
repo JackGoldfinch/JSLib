@@ -130,6 +130,8 @@ namespace JSLib {
 	}
 	
 	void Game::loop() {
+		Advec3 val { 0.0, 0.0, 0.0 };
+		
 		render();
 		
 		_window->show();

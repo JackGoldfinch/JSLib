@@ -49,17 +49,17 @@ namespace JSLib { namespace Util {
 		
 		void addThreads(unsigned int count = std::thread::hardware_concurrency() - 1);
 		
-		template <class T>
+		template <typename T>
 		void postOnMainThread(T &&handler) {
 			_mainThread.post(handler);
 		}
 		
-		template <class T>
+		template <typename T>
 		void postOnBackgroundThread(T &&handler) {
 			_bgThread.post(handler);
 		}
 		
-		template <class T>
+		template <typename T>
 		void postOnBackgroundThread ( T &&handler, void (*completionHandler) ( typename std::result_of<T()>::type result ) ) {
 			_bgThread.post([this, &handler, completionHandler]() {
 				auto result = handler();
@@ -68,7 +68,7 @@ namespace JSLib { namespace Util {
 			});
 		}
 		
-		template <class T>
+		template <typename T>
 		void postOnBackgroundThread ( T &&handler, void (*completionHandler)() ) {
 			_bgThread.post([this, &handler, completionHandler]() {
 				handler();
