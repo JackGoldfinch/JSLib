@@ -8,6 +8,30 @@
 
 #include "Animation.hpp"
 
+glm::vec2 operator* ( const glm::vec2 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar };
+}
+
+glm::vec3 operator* ( const glm::vec3 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar, vec.z * scalar };
+}
+
+glm::vec4 operator* ( const glm::vec4 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar, vec.z * scalar, vec.w * scalar };
+}
+
+glm::dvec2 operator* ( const glm::dvec2 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar };
+}
+
+glm::dvec3 operator* ( const glm::dvec3 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar, vec.z * scalar };
+}
+
+glm::dvec4 operator* ( const glm::dvec4 &vec, const double scalar ) {
+	return { vec.x * scalar, vec.y * scalar, vec.z * scalar, vec.w * scalar };
+}
+
 namespace JSLib {
 namespace Util {
 	
@@ -28,6 +52,35 @@ namespace Util {
 		_finishedAnimatables.clear();
 	}
 	
+	template <> template <>
+		Animatable<glm::dvec2>::Animatable ( GLdouble x, GLdouble y ) {
+			_value = { x, y };
+		}
+
+		template <> template <>
+		Animatable<glm::dvec3>::Animatable ( GLdouble x, GLdouble y, GLdouble z ) {
+			_value = { x, y, z };
+		}
+
+		template <> template <>
+		Animatable<glm::dvec4>::Animatable ( GLdouble x, GLdouble y, GLdouble z, GLdouble w ) {
+			_value = { x, y, z, w };
+		}
+
+		template <> template <>
+		Animatable<glm::vec2>::Animatable ( GLfloat x, GLfloat y ) {
+			_value = { x, y };
+		}
+
+		template <> template <>
+		Animatable<glm::vec3>::Animatable ( GLfloat x, GLfloat y, GLfloat z ) {
+			_value = { x, y, z };
+		}
+
+		template <> template <>
+		Animatable<glm::vec4>::Animatable ( GLfloat x, GLfloat y, GLfloat z, GLfloat w ) {
+			_value = { x, y, z, w };
+		}
 }
 	
 	std::ostream &operator<< ( std::ostream &stream, const Advec3 &vec ) {
@@ -36,5 +89,5 @@ namespace Util {
 		
 		return stream;
 	}
-	
+
 }
