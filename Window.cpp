@@ -166,7 +166,7 @@ namespace JSLib {
 		}
 		
 		glViewport(0, 0, _settings.width, _settings.height);
-		clearColor({.5f, .5f, .5f, 1.f});
+		//clearColor({.5f, .5f, .5f, 1.f});
 		
 		started();
 	}
@@ -184,6 +184,10 @@ namespace JSLib {
 	}
 	
 	void Window::swap() {
+		if ( _clearColor.hasAnimation() || _clearColor.hasChanged() ) {
+			glClearColor(_clearColor->r, _clearColor->g, _clearColor->b, _clearColor->a);
+		}
+		
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		SDL_GL_SwapWindow(_window);
@@ -198,8 +202,12 @@ namespace JSLib {
 			_fullscreen = true;
 		}
 	}
+	
+	void Window::clearColor ( const glm::color4 &clearColor ) {
+		_clearColor = clearColor;
+	}
 
-	void Window::clearColor(const glm::color4 &clearColor) {
-		glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+	void Window::clearColor ( const glm::color4 &clearColor, const Duration &duration ) {
+		_clearColor.animate ( clearColor, duration );
 	}
 }

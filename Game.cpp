@@ -130,8 +130,6 @@ namespace JSLib {
 	}
 	
 	void Game::loop() {
-		Advec3 val { 0.0, 0.0, 0.0 };
-		
 		render();
 		
 		_window->show();
@@ -139,7 +137,7 @@ namespace JSLib {
 		while (_running) {
 			poll();
 			
-			Util::Animatables::Progress();
+			Util::IAnimatable::Process();
 			
 			render();
 			
@@ -154,6 +152,15 @@ namespace JSLib {
 			switch(event.type) {
 				case SDL_QUIT:
 					_running = false;
+					return;
+					
+				case SDL_MOUSEBUTTONDOWN:
+					
+					return;
+					
+				case SDL_MOUSEBUTTONUP:
+					_window->clearColor ( {0.f, 0.f, 0.f, 1.f} );
+					_window->clearColor ( {1.f, 1.f, 1.f, 1.f}, std::chrono::seconds(3) );
 					return;
 			}
 		}

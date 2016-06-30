@@ -35,14 +35,19 @@ glm::dvec4 operator* ( const glm::dvec4 &vec, const double scalar ) {
 namespace JSLib {
 namespace Util {
 	
-	std::set<Animatables*> Animatables::_animatables;
-	std::set<Animatables*> Animatables::_finishedAnimatables;
+	std::set<IAnimatable*> IAnimatable::_animatables;
+	std::set<IAnimatable*> IAnimatable::_finishedAnimatables;
 	
-	void Animatables::Progress() {
+	void IAnimatable::Process() {
 		auto now = Clock::now();
 		
+		/*
+		Avec3 ani;
+		ani.animate ( 2 );
+		*/
+		
 		for ( auto animatable : _animatables ) {
-			animatable->progress ( now );
+			animatable->process ( now );
 		}
 		
 		for ( auto animatable : _finishedAnimatables ) {
@@ -53,34 +58,34 @@ namespace Util {
 	}
 	
 	template <> template <>
-		Animatable<glm::dvec2>::Animatable ( GLdouble x, GLdouble y ) {
-			_value = { x, y };
-		}
+	Animatable<glm::dvec2>::Animatable ( GLdouble x, GLdouble y ) {
+		_value = { x, y };
+	}
 
-		template <> template <>
-		Animatable<glm::dvec3>::Animatable ( GLdouble x, GLdouble y, GLdouble z ) {
-			_value = { x, y, z };
-		}
+	template <> template <>
+	Animatable<glm::dvec3>::Animatable ( GLdouble x, GLdouble y, GLdouble z ) {
+		_value = { x, y, z };
+	}
 
-		template <> template <>
-		Animatable<glm::dvec4>::Animatable ( GLdouble x, GLdouble y, GLdouble z, GLdouble w ) {
-			_value = { x, y, z, w };
-		}
+	template <> template <>
+	Animatable<glm::dvec4>::Animatable ( GLdouble x, GLdouble y, GLdouble z, GLdouble w ) {
+		_value = { x, y, z, w };
+	}
 
-		template <> template <>
-		Animatable<glm::vec2>::Animatable ( GLfloat x, GLfloat y ) {
-			_value = { x, y };
-		}
+	template <> template <>
+	Animatable<glm::vec2>::Animatable ( GLfloat x, GLfloat y ) {
+		_value = { x, y };
+	}
 
-		template <> template <>
-		Animatable<glm::vec3>::Animatable ( GLfloat x, GLfloat y, GLfloat z ) {
-			_value = { x, y, z };
-		}
+	template <> template <>
+	Animatable<glm::vec3>::Animatable ( GLfloat x, GLfloat y, GLfloat z ) {
+		_value = { x, y, z };
+	}
 
-		template <> template <>
-		Animatable<glm::vec4>::Animatable ( GLfloat x, GLfloat y, GLfloat z, GLfloat w ) {
-			_value = { x, y, z, w };
-		}
+	template <> template <>
+	Animatable<glm::vec4>::Animatable ( GLfloat x, GLfloat y, GLfloat z, GLfloat w ) {
+		_value = { x, y, z, w };
+	}
 }
 	
 	std::ostream &operator<< ( std::ostream &stream, const Advec3 &vec ) {

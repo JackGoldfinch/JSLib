@@ -36,6 +36,8 @@ using namespace gl;
 
 #include "JSLib_GLM.hpp"
 
+#include "Util/Animation.hpp"
+
 #include "Util/System.hpp"
 
 namespace JSLib {
@@ -71,6 +73,8 @@ namespace JSLib {
 		SDL_GLContext _context;
 		
 		bool _fullscreen;
+		
+		Avec4 _clearColor;
 
 		Window(const std::string &title, Settings &settings, unsigned int x = SDL_WINDOWPOS_UNDEFINED, unsigned int y = SDL_WINDOWPOS_UNDEFINED);
 		
@@ -89,7 +93,8 @@ namespace JSLib {
 			SDL_SetWindowTitle ( _window, title.c_str() );
 		}
 
-		void clearColor (const glm::color4 &clearColor);
+		void clearColor ( const glm::color4 &clearColor );
+		void clearColor ( const glm::color4 &clearColor, const Duration &duration );
 	};
 }
 

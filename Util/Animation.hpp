@@ -22,6 +22,11 @@ using namespace gl;
 #include <iostream>
 #include <memory>
 
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/contains.hpp>
+
+typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4> vectors;
+
 glm::vec2 operator* ( const glm::vec2 &vec, const double scalar );
 glm::vec3 operator* ( const glm::vec3 &vec, const double scalar );
 glm::vec4 operator* ( const glm::vec4 &vec, const double scalar );
@@ -31,35 +36,51 @@ glm::dvec3 operator* ( const glm::dvec3 &vec, const double scalar );
 glm::dvec4 operator* ( const glm::dvec4 &vec, const double scalar );
 
 namespace JSLib {
-namespace Util {
 	
 	typedef std::chrono::high_resolution_clock Clock;
 	typedef std::chrono::time_point<Clock> TimePoint;
 	typedef std::chrono::milliseconds Duration;
 	
-	class Animatables {
+namespace Util {
+	
+	class IAnimatable {
 	protected:
-		static std::set<Animatables*> _animatables;
-		static std::set<Animatables*> _finishedAnimatables;
+		static std::set<IAnimatable*> _animatables;
+		static std::set<IAnimatable*> _finishedAnimatables;
 		
-		virtual void progress ( const TimePoint &now ) = 0;
+		virtual void process ( const TimePoint &now ) = 0;
 		virtual void cleanup() = 0;
 		
 	public:
-		static void Progress();
+		static void Process();
 		
-		virtual ~Animatables(){}
+		virtual ~IAnimatable(){}
 	};
 	
 	template <typename T>
-	class Animatable : public Animatables {
+	class Animatable : public IAnimatable {
 		typedef T ValueType;
 		
 	protected:
-		class Animation {
+		class IAnimation {
 		protected:
 			Animatable<ValueType> &_animatable;
 			
+		public:
+			IAnimation ( Animatable &animatable ):
+			_animatable ( animatable ) {
+				//std::cout << "Animation constructed." << std::endl;
+			}
+			
+			virtual ~IAnimation() {
+				//std::cout << "Animation destructed." << std::endl;
+			}
+			
+			virtual void process ( const TimePoint &now ) = 0;
+		};
+		
+		class ISimpleAnimation : public IAnimation {
+		protected:
 			TimePoint _startTimePoint;
 			Duration _duration;
 			
@@ -67,36 +88,63 @@ namespace Util {
 			ValueType _delta;
 			
 		public:
-			Animation ( Animatable &animatable, const ValueType &targetValue, const Duration &duration ):
-			_animatable ( animatable ),
+			ISimpleAnimation ( Animatable &animatable, const ValueType &targetValue, const Duration &duration ):
+			IAnimation ( animatable ),
 			_startTimePoint ( Clock::now() ),
 			_duration ( duration ),
-			_startValue ( _animatable._value ),
-			_delta ( targetValue - _animatable._value ){
-				//std::cout << "Animation constructed." << std::endl;
+			_startValue ( animatable._value ),
+			_delta ( targetValue - animatable._value ) {
+				//std::cout << "SimpleAnimation constructed." << std::endl;
 			}
 			
-			~Animation(){
-				//std::cout << "Animation destructed." << std::endl;
+			virtual ~ISimpleAnimation() {
+				//std::cout << "SimpleAnimation destructed." << std::endl;
 			}
 			
-			void progress ( const TimePoint &now ) {
-				auto deltaTime = std::chrono::duration_cast<Duration>(now - _startTimePoint);
+			virtual void process ( const TimePoint &now ) = 0;
+		};
+		
+		class LinearAnimation : public ISimpleAnimation {
+		public:
+			LinearAnimation ( Animatable &animatable, const ValueType &targetValue, const Duration &duration ):
+			ISimpleAnimation ( animatable, targetValue, duration ) {
+				//std::cout << "LinearAnimation constructed." << std::endl;
+			}
+			
+			/*
+			template<typename U = ValueType>
+			LinearAnimation ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int> test ) {
 				
-				auto completion = (double)deltaTime.count() / _duration.count();
+			}
+			*/
+			
+			virtual ~LinearAnimation(){
+				//std::cout << "LinearAnimation destructed." << std::endl;
+			}
+			
+			virtual void process ( const TimePoint &now ) {
+				auto deltaTime = std::chrono::duration_cast<Duration>(now - this->_startTimePoint);
+				
+				auto completion = (double)deltaTime.count() / this->_duration.count();
 				completion = glm::min ( completion, 1.0 );
 				
-				_animatable._value = _startValue + ( _delta * completion );
+				this->_animatable._value = this->_startValue + ( this->_delta * completion );
 				
 				if ( completion >= 1.f ) {
-					_finishedAnimatables.insert ( &_animatable );
+					_finishedAnimatables.insert ( &this->_animatable );
 				}
 			}
 		};
 		
 		ValueType _value;
 		
-		std::unique_ptr<Animation> _animation;
+		mutable bool _hasChanged = false;
+		
+		std::unique_ptr<IAnimation> _animation;
+		
+		void change() {
+			_hasChanged = true;
+		}
 		
 	public:
 		Animatable(){}
@@ -108,14 +156,23 @@ namespace Util {
 		Animatable ( Args ... args ) {}
 		
 		void animate ( const ValueType &target, const Duration duration ) {
-			_animation.reset ( new Animation ( *this, target, duration ) );
+			_animation.reset ( new LinearAnimation ( *this, target, duration ) );
 			
-			Animatables::_animatables.insert ( this );
+			IAnimatable::_animatables.insert ( this );
 		}
 		
-		virtual void progress ( const TimePoint &now ) {
+		void animate ( IAnimation *animation );
+		
+		template<typename U = ValueType>
+		void animate ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int>::type test ) {
+			
+		}
+		
+		virtual void process ( const TimePoint &now ) {
 			if ( _animation ) {
-				_animation->progress ( now );
+				_animation->process ( now );
+				
+				change();
 			}
 		}
 		
@@ -123,6 +180,18 @@ namespace Util {
 			_animatables.erase ( this );
 			
 			_animation.reset();
+		}
+		
+		bool hasChanged() const {
+			bool changed = _hasChanged;
+			
+			_hasChanged = false;
+			
+			return changed;
+		}
+		
+		bool hasAnimation() const {
+			return _animation != nullptr;
 		}
 		
 		operator ValueType() {
@@ -134,6 +203,8 @@ namespace Util {
 		}
 		
 		ValueType operator= ( const ValueType &value ) {
+			change();
+			
 			_value = value;
 			
 			return _value;
@@ -144,6 +215,8 @@ namespace Util {
 		}
 		
 		ValueType operator+= ( const ValueType &value) {
+			change();
+			
 			return _value += value;
 		}
 		
@@ -152,11 +225,17 @@ namespace Util {
 		}
 		
 		ValueType operator-= ( const ValueType &value) {
+			change();
+			
 			return _value -= value;
 		}
 		
 		ValueType operator*() const {
 			return _value;
+		}
+		
+		ValueType *operator->() {
+			return &_value;
 		}
 	};
 	
