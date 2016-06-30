@@ -10,10 +10,14 @@
 #ifndef __JSLIB_GLM_HPP
 #define __JSLIB_GLM_HPP
 
+#ifdef __JSLIB
+
 #define GLM_MESSAGES
 
 #define GLM_SWIZZLE
 #define GLM_FORCE_SIZE_T_LENGTH
+
+#endif // #ifdef __JSLIB
 
 #if (defined JSLIB_GLM_FWD) || (! defined JSLIB_GLM_NO_FWD)
 
