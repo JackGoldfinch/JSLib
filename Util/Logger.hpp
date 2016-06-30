@@ -56,7 +56,7 @@ namespace Util {
 		void setFile(const fs::path &file);
 		void closeFile();
 		
-		template <class T>
+		template <typename T>
 		Logger &operator<<(const T &t) {
 			std::lock_guard<std::mutex> lock (_mutex);
 			
@@ -106,7 +106,7 @@ namespace Util {
 			return *this;
 		}
 		
-		template <class T>
+		template <typename T>
 		std::string formattedNumber(const T &i, unsigned int width, char fill = '0') {
 			std::stringstream stream;
 			stream << std::setw(width) << std::setfill(fill) << i;
