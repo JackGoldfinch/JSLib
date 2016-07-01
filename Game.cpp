@@ -36,6 +36,8 @@ namespace JSLib {
 			return -1;
 		}
 		
+		log << "Platform: " << SDL_GetPlatform() << std::endl;
+
 		auto cBasePath = SDL_GetBasePath();
 		basePath = cBasePath;
 		SDL_free(cBasePath);
