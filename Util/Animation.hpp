@@ -249,4 +249,4 @@ namespace Util {
 
 }
 
-#endif // #ifdef __JSLIB_ANIMATION_HPP
+#endif // #ifndef __JSLIB_UTIL_ANIMATION_HPP
