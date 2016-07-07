@@ -25,7 +25,7 @@ namespace Util {
 		
 	public:
 		System ( const char *name );
-		~System();
+		virtual ~System();
 		
 		void started();
 		void stopping();
