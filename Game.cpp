@@ -109,6 +109,8 @@ namespace JSLib {
 		std::atexit(SDL_Quit);
 
 		_window = Window::Create(settings.title, settings.window);
+		
+		_renderSystem = new RenderSystem ( _window.get() );
 
 		_audioSystem = new AudioSystem;
 		
@@ -123,6 +125,8 @@ namespace JSLib {
 		worker.reset();
 
 		delete _audioSystem;
+		
+		delete _renderSystem;
 
 		_window.reset();
 
