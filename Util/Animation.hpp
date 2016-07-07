@@ -13,8 +13,6 @@
 #include <glbinding/gl/types.h>
 using namespace gl;
 
-#define JSLIB_GLM_NO_FWD
-
 #include "../JSLib_GLM.hpp"
 
 #include <chrono>
@@ -22,18 +20,12 @@ using namespace gl;
 #include <iostream>
 #include <memory>
 
+#include <glm/glm.hpp>
+
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/contains.hpp>
 
 typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4> vectors;
-
-glm::vec2 operator* ( const glm::vec2 &vec, const double scalar );
-glm::vec3 operator* ( const glm::vec3 &vec, const double scalar );
-glm::vec4 operator* ( const glm::vec4 &vec, const double scalar );
-
-glm::dvec2 operator* ( const glm::dvec2 &vec, const double scalar );
-glm::dvec3 operator* ( const glm::dvec3 &vec, const double scalar );
-glm::dvec4 operator* ( const glm::dvec4 &vec, const double scalar );
 
 namespace JSLib {
 	
@@ -254,9 +246,7 @@ namespace Util {
 	typedef Util::Animatable<glm::dvec2> Advec2;
 	typedef Util::Animatable<glm::dvec3> Advec3;
 	typedef Util::Animatable<glm::dvec4> Advec4;
-	
-	std::ostream &operator<< ( std::ostream &stream, const Advec3 &vec );
-	
+
 }
 
-#endif // #ifdef __JSLIB_ANIMATION_HPP
+#endif // #ifndef __JSLIB_UTIL_ANIMATION_HPP

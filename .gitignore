@@ -1,5 +1,6 @@
-DerivedData
+DerivedData/
 x64/
 .vs/
 JSLib.VC.db
 Debug/
+.settings/

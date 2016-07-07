@@ -36,6 +36,8 @@ namespace JSLib {
 			return -1;
 		}
 		
+		log << "Platform: " << SDL_GetPlatform() << std::endl;
+
 		auto cBasePath = SDL_GetBasePath();
 		basePath = cBasePath;
 		SDL_free(cBasePath);
@@ -100,8 +102,6 @@ namespace JSLib {
 	_running(true) {
 		log << "Game: Starting..." << std::endl;
 		
-		worker.addThreads();
-			
 		if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0) {
 			throw SDLEventsInitFailedException();
 		}
@@ -112,19 +112,21 @@ namespace JSLib {
 
 		_audioSystem = new AudioSystem;
 		
+		worker.addThreads();
+
 		log << "Game: Starting... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
 	
 	Game::~Game() {
 		log << "Game: Stopping..." << std::endl;
 		
+		worker.reset();
+
 		delete _audioSystem;
 
 		_window.reset();
 
 		SDL_QuitSubSystem(SDL_INIT_EVENTS);
-		
-		worker.reset();
 		
 		log << "Game: Stopping... OK. (+" << _stopWatch() << ")" << std::endl;
 	}
