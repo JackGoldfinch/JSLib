@@ -14,11 +14,17 @@
 
 #include "../Util/System.hpp"
 
+#include "IRenderable.hpp"
+
 namespace JSLib {
 	
 	class Window;
 	
 namespace Render {
+	
+	/**
+		@brief A class, which's single instantiation handles all things that can be rendered.
+	 */
 	
 	class JSLIB_EXPORT System : public Util::System {
 	protected:
@@ -28,7 +34,10 @@ namespace Render {
 		System ( Window *window );
 		~System();
 		
-		virtual void process();
+		/**
+			@brief This method handles the rendering of all registered renderables.
+		 */
+		void process();
 	};
 	
 } // namespace Render

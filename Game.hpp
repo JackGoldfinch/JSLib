@@ -73,7 +73,6 @@ namespace JSLib {
 		void loop();
 		
 		void poll();
-		void render();
 		
 	public:
 		static Util::Logger log;

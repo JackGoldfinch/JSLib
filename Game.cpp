@@ -136,7 +136,7 @@ namespace JSLib {
 	}
 	
 	void Game::loop() {
-		render();
+		_renderSystem->process();
 		
 		_window->show();
 		
@@ -145,7 +145,7 @@ namespace JSLib {
 			
 			Util::IAnimatable::Process();
 			
-			render();
+			_renderSystem->process();
 			
 			worker.runMainThreadQueue();
 		}
@@ -170,10 +170,6 @@ namespace JSLib {
 					return;
 			}
 		}
-	}
-	
-	void Game::render() {
-		_window->swap();
 	}
 		
 } // namespace JSLib

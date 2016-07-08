@@ -10,6 +10,8 @@
 		8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F125CF01D05F70900DDD355 /* StopWatch.cpp */; };
 		8F18F0621D2A5AB200C4EB2D /* JSLib_GLM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F18F0611D2A5AB200C4EB2D /* JSLib_GLM.cpp */; };
 		8F18F0691D2CF94900C4EB2D /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F18F0671D2CF94900C4EB2D /* Render.cpp */; };
+		8F9198B81D2F2AA700972524 /* IRenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198B61D2F2AA700972524 /* IRenderable.cpp */; };
+		8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198B91D2FCD4C00972524 /* Quad.cpp */; };
 		8FBA43C91CE0A21300A9E9F0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */; };
 		8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */; };
 		8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA43CF1CE0ED8000A9E9F0 /* Worker.cpp */; };
@@ -28,6 +30,10 @@
 		8F18F0611D2A5AB200C4EB2D /* JSLib_GLM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSLib_GLM.cpp; sourceTree = "<group>"; };
 		8F18F0671D2CF94900C4EB2D /* Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Render.cpp; sourceTree = "<group>"; };
 		8F18F0681D2CF94900C4EB2D /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
+		8F9198B61D2F2AA700972524 /* IRenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRenderable.cpp; sourceTree = "<group>"; };
+		8F9198B71D2F2AA700972524 /* IRenderable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IRenderable.hpp; sourceTree = "<group>"; };
+		8F9198B91D2FCD4C00972524 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
+		8F9198BA1D2FCD4C00972524 /* Quad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quad.hpp; sourceTree = "<group>"; };
 		8FBA43C81CE0A21300A9E9F0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8FBA43CA1CE0A4BB00A9E9F0 /* JSLib_OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSLib_OpenGL.hpp; sourceTree = "<group>"; };
 		8FBA43CC1CE0A88100A9E9F0 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
@@ -73,6 +79,10 @@
 			children = (
 				8F18F0671D2CF94900C4EB2D /* Render.cpp */,
 				8F18F0681D2CF94900C4EB2D /* Render.hpp */,
+				8F9198B61D2F2AA700972524 /* IRenderable.cpp */,
+				8F9198B71D2F2AA700972524 /* IRenderable.hpp */,
+				8F9198B91D2FCD4C00972524 /* Quad.cpp */,
+				8F9198BA1D2FCD4C00972524 /* Quad.hpp */,
 			);
 			path = Render;
 			sourceTree = "<group>";
@@ -226,9 +236,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE8998F1D06B5E500680BFB /* System.cpp in Sources */,
+				8F9198B81D2F2AA700972524 /* IRenderable.cpp in Sources */,
 				8FBD862B1D01FFB500C1F40C /* Audio.cpp in Sources */,
 				8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
+				8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
 				8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */,
 				8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */,

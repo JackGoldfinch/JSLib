@@ -26,7 +26,9 @@ namespace Render {
 	}
 	
 	void System::process() {
+		IRenderable::Render();
 		
+		_window->swap();
 	}
 	
 } // namespace Render
