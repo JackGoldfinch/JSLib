@@ -35,12 +35,26 @@ namespace JSLib {
 	
 namespace Util {
 	
+	/**
+		@brief Template class for animatable values.
+		@discussion
+	 */
+	
 	class IAnimatable {
 	protected:
 		static std::set<IAnimatable*> _animatables;
 		static std::set<IAnimatable*> _finishedAnimatables;
 		
+		/**
+			@brief
+		 */
+		
 		virtual void process ( const TimePoint &now ) = 0;
+		
+		/**
+			@brief 
+		 */
+		
 		virtual void cleanup() = 0;
 		
 	public:
@@ -104,6 +118,8 @@ namespace Util {
 			}
 			
 			/*
+			 *	Probably not necessary
+			 *
 			template<typename U = ValueType>
 			LinearAnimation ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int> test ) {
 				
@@ -155,10 +171,14 @@ namespace Util {
 		
 		void animate ( IAnimation *animation );
 		
+		/*
+		 *	Not necessary (very likely).
+		 *
 		template<typename U = ValueType>
 		void animate ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int>::type test ) {
 			
 		}
+		 */
 		
 		virtual void process ( const TimePoint &now ) {
 			if ( _animation ) {
