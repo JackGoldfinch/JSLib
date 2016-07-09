@@ -13,12 +13,14 @@
 
 #include "../JSLib_OpenGL.hpp"
 
+#include <glm/glm.hpp>
+
 namespace JSLib {
 namespace Render {
 	
 	class JSLIB_EXPORT Quad {
 	protected:
-		static const GLfloat _data[];
+		static const glm::vec3 _data[];
 		
 		GLuint _vao, _vbo;
 		

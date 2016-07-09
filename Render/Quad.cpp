@@ -11,8 +11,11 @@
 namespace JSLib {
 namespace Render {
 	
-	const GLfloat _data[] = {
-		
+	const glm::vec3 Quad::_data[] = {
+		{ -0.5f, -0.5f, 0.0f },
+		{ -0.5f,  0.5f, 0.0f },
+		{  0.5f,  0.5f, 0.0f },
+		{  0.5f, -0.5f, 0.0f }
 	};
 	
 	Quad::Quad() {
@@ -22,7 +25,7 @@ namespace Render {
 		glGenBuffers ( 1, &_vbo );
 		glBindBuffer (GL_ARRAY_BUFFER, _vao );
 		
-		glBufferData ( GL_ARRAY_BUFFER, 4, _data, GL_STATIC_DRAW );
+		glBufferData ( GL_ARRAY_BUFFER, 4 * sizeof ( glm::vec3 ), _data, GL_STATIC_DRAW );
 	}
 	
 	Quad::~Quad() {

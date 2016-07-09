@@ -26,4 +26,13 @@
 
 using namespace gl;
 
+#include <string>
+
+struct OpenGLException : public std::runtime_error {
+	OpenGLException() : std::runtime_error("Something bad happened within OpenGL.") {}
+	OpenGLException ( const std::string text ) : std::runtime_error ( text.c_str() ) {}
+	
+	virtual ~OpenGLException(){}
+};
+
 #endif // #ifndef __JSLIB_OPENGL_HPP
