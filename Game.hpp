@@ -31,6 +31,8 @@
 
 #include "Window.hpp"
 
+#include "Exception.hpp"
+
 namespace JSLib {
 	class JSLIB_EXPORT Game {
 	public:
@@ -50,8 +52,8 @@ namespace JSLib {
 			Window::Settings window;
 		};
 		
-		struct SDLEventsInitFailedException : std::runtime_error {
-			SDLEventsInitFailedException() : std::runtime_error("SDL system 'events' failed to initialise."){}
+		struct SDLEventsInitFailedException : Exception {
+			SDLEventsInitFailedException() : Exception("SDL Event initialisation failed"){}
 		};
 
 	protected:
