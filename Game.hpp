@@ -34,6 +34,11 @@
 #include "Exception.hpp"
 
 namespace JSLib {
+	
+	/**
+		@brief The main class.
+	 */
+	
 	class JSLIB_EXPORT Game {
 	public:
 		struct RunSettings {
@@ -77,6 +82,10 @@ namespace JSLib {
 	public:
 		static Util::Logger log;
 		static Util::Worker worker;
+		
+		/**
+			@discussion The game singleton object is created here.
+		 */
 		
 		static int Run(Settings &settings, RunSettings *runSettings = nullptr) noexcept;
 		

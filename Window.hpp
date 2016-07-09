@@ -43,6 +43,11 @@ using namespace gl;
 #include "Exception.hpp"
 
 namespace JSLib {
+	
+	/**
+		@brief This is the sole window that is created by the game.
+	 */
+	
 	class JSLIB_EXPORT Window : Util::System {
 	public:
 		struct SDLVideoInitFailedException : public Exception {
