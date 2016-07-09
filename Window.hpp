@@ -40,19 +40,26 @@ using namespace gl;
 
 #include "Util/System.hpp"
 
+#include "Exception.hpp"
+
 namespace JSLib {
+	
+	/**
+		@brief This is the sole window that is created by the game.
+	 */
+	
 	class JSLIB_EXPORT Window : Util::System {
 	public:
-		struct SDLVideoInitFailedException : public std::runtime_error {
-			SDLVideoInitFailedException() : std::runtime_error("SDL system 'video' failed to initialise.") {}
+		struct SDLVideoInitFailedException : public Exception {
+			SDLVideoInitFailedException() : Exception("SDL Video Initialisation failed") {}
 		};
 		
-		struct WindowCreationFailedException : public std::runtime_error {
-			WindowCreationFailedException() : std::runtime_error("Window creation failed.") {}
+		struct WindowCreationFailedException : public Exception {
+			WindowCreationFailedException() : Exception("Window creation failed") {}
 		};
 		
-		struct OpenGLContextCreationFailedException : public std::runtime_error {
-			OpenGLContextCreationFailedException() : std::runtime_error("Creation of OpenGL context failed.") {}
+		struct OpenGLContextCreationFailedException : public Exception {
+			OpenGLContextCreationFailedException() : Exception("Creation of OpenGL context failed") {}
 		};
 		
 		struct Settings {

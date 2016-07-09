@@ -49,15 +49,34 @@ namespace JSLib { namespace Util {
 		
 		void addThreads(unsigned int count = std::thread::hardware_concurrency() - 1);
 		
+		/**
+			@brief Post a functional to be executed on the main thread.
+			@discussion The handler will be queued on the main thread queue. Every tick all queued handlers will be performed.
+			@param handler The action to be performed on the main thread.
+		 */
+		
 		template <typename T>
 		void postOnMainThread(T &&handler) {
 			_mainThread.post(handler);
 		}
 		
+		/**
+			@brief Post a functional to be executed on any background thread.
+			@discussion The handler will be performed on any background thread.
+			@param handler The action to be performed on a background thread.
+		 */
+		
 		template <typename T>
 		void postOnBackgroundThread(T &&handler) {
 			_bgThread.post(handler);
 		}
+		
+		/**
+			@brief Post a functional to be executed on any background thread.
+			@discussion The handler will be performed on any background thread. The return value of the handler will be passed to the completion handler.
+			@param handler The action to be performed on a background thread.
+			@param completionHandler This handler will be executed on the main thread. Takes an argument of the handler's return value's type.
+		 */
 		
 		template <typename T>
 		void postOnBackgroundThread ( T &&handler, void (*completionHandler) ( typename std::result_of<T()>::type result ) ) {
@@ -67,6 +86,13 @@ namespace JSLib { namespace Util {
 				_mainThread.post ( std::bind ( completionHandler, result ) );
 			});
 		}
+		
+		/**
+			@brief Post a functional to be executed on any background thread.
+			@discussion The handler will be performed on any background thread.
+			@param handler The action to be performed on a background thread.
+			@param completionHandler This handler will be executed on the main thread.
+		 */
 		
 		template <typename T>
 		void postOnBackgroundThread ( T &&handler, void (*completionHandler)() ) {

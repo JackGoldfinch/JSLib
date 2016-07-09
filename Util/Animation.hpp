@@ -35,15 +35,35 @@ namespace JSLib {
 	
 namespace Util {
 	
+	/**
+		@brief Template class for animatable values.
+		@discussion
+	 */
+	
 	class IAnimatable {
 	protected:
 		static std::set<IAnimatable*> _animatables;
 		static std::set<IAnimatable*> _finishedAnimatables;
 		
+		/**
+			@brief Advance the current animation.
+			@param now Point in time to base the progression on.
+		 */
+		
 		virtual void process ( const TimePoint &now ) = 0;
+		
+		/**
+			@brief 
+		 */
+		
 		virtual void cleanup() = 0;
 		
 	public:
+		
+		/**
+			@brief Advance the current animation of all registered IAnimatables.
+		 */
+		
 		static void Process();
 		
 		virtual ~IAnimatable(){}
@@ -71,6 +91,10 @@ namespace Util {
 			virtual void process ( const TimePoint &now ) = 0;
 		};
 		
+		/**
+			@brief Base class for all specialised animations.
+		 */
+		
 		class ISimpleAnimation : public IAnimation {
 		protected:
 			TimePoint _startTimePoint;
@@ -96,6 +120,11 @@ namespace Util {
 			virtual void process ( const TimePoint &now ) = 0;
 		};
 		
+		/**
+			@brief A linear animation.
+			@discussion This animation advances from the base value to the target value. No speeding up, no slowing down.
+		 */
+		
 		class LinearAnimation : public ISimpleAnimation {
 		public:
 			LinearAnimation ( Animatable &animatable, const ValueType &targetValue, const Duration &duration ):
@@ -104,6 +133,8 @@ namespace Util {
 			}
 			
 			/*
+			 *	Probably not necessary
+			 *
 			template<typename U = ValueType>
 			LinearAnimation ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int> test ) {
 				
@@ -155,10 +186,14 @@ namespace Util {
 		
 		void animate ( IAnimation *animation );
 		
+		/*
+		 *	Not necessary (very likely).
+		 *
 		template<typename U = ValueType>
 		void animate ( typename std::enable_if<boost::mpl::contains<vectors, U>::value, int>::type test ) {
 			
 		}
+		 */
 		
 		virtual void process ( const TimePoint &now ) {
 			if ( _animation ) {

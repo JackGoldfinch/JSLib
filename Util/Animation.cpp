@@ -17,11 +17,6 @@ namespace Util {
 	void IAnimatable::Process() {
 		auto now = Clock::now();
 		
-		/*
-		Avec3 ani;
-		ani.animate ( 2 );
-		*/
-		
 		for ( auto animatable : _animatables ) {
 			animatable->process ( now );
 		}
