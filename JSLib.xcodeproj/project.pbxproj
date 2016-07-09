@@ -146,8 +146,8 @@
 				8FCC0CEF1CDCAFE200F78FEE /* Game.hpp */,
 				8FCC0CF41CDCB6D800F78FEE /* Window.cpp */,
 				8FCC0CF51CDCB6D800F78FEE /* Window.hpp */,
-				8F9198C01D30833D00972524 /* Exception.hpp */,
 				8F9198C21D3086FB00972524 /* Exception.cpp */,
+				8F9198C01D30833D00972524 /* Exception.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
