@@ -8,12 +8,50 @@
 
 #include "Shader.hpp"
 
+#include "../Util/StopWatch.hpp"
+
+#include "../Game.hpp"
+
 #include <vector>
+#include <fstream>
 
 namespace JSLib {
 namespace Render {
 	
+#pragma predefined shaders
+	
+	struct {
+		const char *vsh =
+		"#version 330 core\n"
+		"layout ( location = 0 ) in vec3 position;\n"
+		"void main() {\n"
+		"\tgl_Position = vec4 ( position, 1.0 );\n"
+		"}\n";
+		
+		const char *fsh =
+		"#version 330 core\n"
+		"layout ( location = 0 ) out vec4 finalColor;\n"
+		"void main() {\n"
+		"\tfinalColor = vec4 ( 1.0, 1.0, 1.0, 1.0 );\n"
+		"}\n";
+	} simple;
+	
+#pragma mark Globally private stuff
+	
 	const int numShaders = 3;
+	
+	template <void(*_getiv)(GLuint, GLenum, GLint*), void(*_getInfoLog)(GLuint, GLsizei, GLsizei*, GLchar*)>
+	void getInfoLog ( GLuint &sh, std::string &target ) {
+		GLint length;
+		_getiv ( sh, GL_INFO_LOG_LENGTH, &length );
+		if ( length ) {
+			std::vector<GLchar> buf ( length );
+			
+			_getInfoLog ( sh, length, nullptr, &buf[0] );
+			
+			target = &buf[0];
+		}
+	}
 	
 	void createShader ( GLuint &p, GLuint &sh, GLenum type, const char *source ) {
 		sh = glCreateShader ( type );
@@ -26,16 +64,8 @@ namespace Render {
 		
 		glCompileShader ( sh );
 		
-		GLint length;
 		std::string infoLog;
-		glGetShaderiv ( sh, GL_INFO_LOG_LENGTH, &length );
-		if ( length ) {
-			std::vector<GLchar> buf ( length );
-			
-			glGetShaderInfoLog ( sh, length, nullptr, &buf[0] );
-			
-			infoLog = &buf[0];
-		}
+		getInfoLog<glGetShaderiv, glGetShaderInfoLog>(sh, infoLog);
 		
 		GLboolean status;
 		glGetShaderiv ( sh, GL_COMPILE_STATUS, &status );
@@ -51,7 +81,9 @@ namespace Render {
 	
 	void detachShaders ( const GLuint &p, GLuint *sh ) {
 		for ( GLuint i = 0; i < numShaders; ++i ) {
-			glDetachShader ( p, sh[i] );
+			if ( sh[i] ) {
+				glDetachShader ( p, sh[i] );
+			}
 		}
 	}
 	
@@ -61,7 +93,85 @@ namespace Render {
 		}
 	}
 	
-	Shader::Shader ( const char *srcVS, const char *srcFS, const char *srcGS ) {
+#pragma mark Shader
+	
+	const fs::path Shader::_path { "Shaders" };
+	
+	Shader::Map Shader::_shaders;
+	
+	Shader::KeySet Shader::_wip, Shader::_blacklist;
+	
+	std::mutex Shader::_shadersMutex, Shader::_wipMutex, Shader::_blacklistMutex;
+	
+	Shader *Shader::_active = nullptr;
+	
+	void Shader::Fill() {
+		Post ( "simple", simple.vsh, simple.fsh );
+	}
+	
+	void Shader::Clear() {
+		MutexGuard guard ( _shadersMutex );
+		_shaders.clear();
+	}
+	
+	void Shader::Post ( const char *key, Shader *shader ) {
+		if ( ! shader ) {
+			return;
+		}
+		
+		MutexGuard guard ( _shadersMutex );
+		_shaders.insert ( Shader::Map::value_type ( key, Unique ( shader ) ) );
+		
+	}
+	
+	void Shader::Post ( const char *key, const char *vsh, const char *fsh, const char *gsh ) {
+		try {
+			auto shader = new Shader ( key, vsh, fsh, gsh );
+			Post ( key, shader );
+		} catch ( const Exception &e ) {
+			
+		}
+	}
+	
+	Shader *Shader::Get ( const char *key ) {
+		Shader *shader = nullptr;
+		
+		try {
+			MutexGuard guard ( _shadersMutex );
+			shader = _shaders.at ( key ).get();
+		} catch ( const std::out_of_range &e ) {
+			auto path = _path / key;
+			
+			if ( fs::exists ( path ) ) {
+				_wip.insert ( key );
+				
+				Game::worker.postOnBackgroundThread ( [key, &path]() {
+					std::ifstream file ( path.c_str(), std::ios::in );
+					
+					
+				} );
+			} else {
+				_blacklist.insert ( key );
+			}
+		}
+		
+		return shader;
+	}
+	
+	void Shader::Bind ( Shader *shader ) {
+		if ( _active != shader ) {
+			_active = shader;
+			
+			glUseProgram ( _active->_id );
+		}
+	}
+	
+	Shader::Shader ( const fs::path &name, const char *srcVS, const char *srcFS, const char *srcGS ):
+		_name ( name ) {
+		Util::StopWatch stopwatch;
+		
+		Game::log << "Creating shader program " << _name << "..." << std::endl;
+			
 		if ( ! ( srcVS && srcFS ) ) {
 			throw IncompleteException();
 		}
@@ -83,17 +193,9 @@ namespace Render {
 		}
 		
 		glLinkProgram ( _id );
-		
-		GLint length;
+			
 		std::string infoLog;
-		glGetProgramiv ( _id, GL_INFO_LOG_LENGTH, &length );
-		if ( length ) {
-			std::vector<GLchar> buf ( length );
-			
-			glGetProgramInfoLog ( _id, length, nullptr, &buf[0] );
-			
-			infoLog = &buf[0];
-		}
+		getInfoLog<glGetProgramiv, glGetProgramInfoLog>(_id, infoLog);
 		
 		GLboolean status;
 		glGetProgramiv ( _id, GL_LINK_STATUS, &status );
@@ -105,9 +207,21 @@ namespace Render {
 			throw LinkingException ( infoLog );
 		}
 		
-		detachShaders ( _id, sh );
+			//detachShaders ( _id, sh );
 		
-		deleteShaders ( sh );
+			//deleteShaders ( sh );
+			
+		glValidateProgram ( _id );
+		
+		std::string validationLog;
+		getInfoLog<glGetProgramiv, glGetProgramInfoLog>(_id, validationLog);
+		
+		glGetProgramiv(_id, GL_VALIDATE_STATUS, &status);
+		if ( status != GL_TRUE ) {
+			Game::log << _name << " -- " << validationLog << std::endl;
+		}
+			
+		Game::log << "Creating shader program " << _name << "... OK. (+" << stopwatch() << ")" << std::endl;
 	}
 	
 	Shader::~Shader() {
