@@ -43,8 +43,6 @@ namespace JSLib { namespace Util {
 		Worker();
 		~Worker();
 		
-		static Worker &Get();
-		
 		boost::system::error_code runMainThreadQueue();
 		
 		void addThreads(unsigned int count = std::thread::hardware_concurrency() - 1);
