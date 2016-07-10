@@ -19,16 +19,13 @@
 
 #include "JSLib_OpenGL.hpp"
 
-#pragma warning(once: 4251)
-#include <glbinding/Binding.h>
-#pragma warning(default: 4251)
-using namespace gl;
-
 #include <SDL2/SDL.h>
 
 #define JSLIB_GLM_NO_FWD
 
 #else
+
+#include <glbinding/gl33ext/bitfield.h>
 
 #include <SDL2/SDL_video.h>
 
@@ -37,7 +34,6 @@ using namespace gl;
 #include "JSLib_GLM.hpp"
 
 #include "Util/Animation.hpp"
-
 #include "Util/System.hpp"
 
 #include "Exception.hpp"
@@ -88,6 +84,7 @@ namespace JSLib {
 	public:
 		~Window();
 		
+		void clear ( ClearBufferMask cbm = GL_COLOR_BUFFER_BIT );
 		void swap();
 		
 		void show() const {

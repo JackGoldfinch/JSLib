@@ -12,6 +12,10 @@
 
 #include "Game.hpp"
 
+#pragma warning(once: 4251)
+#include <glbinding/Binding.h>
+#pragma warning(default: 4251)
+
 namespace JSLib {
 	Uint32 Window::fullscreenMode = SDL_WINDOW_FULLSCREEN;
 	
@@ -183,13 +187,15 @@ namespace JSLib {
 		SDL_QuitSubSystem(SDL_INIT_VIDEO);
 	}
 	
-	void Window::swap() {
+	void Window::clear ( ClearBufferMask cbm ) {
 		if ( _clearColor.hasAnimation() || _clearColor.hasChanged() ) {
 			glClearColor(_clearColor->r, _clearColor->g, _clearColor->b, _clearColor->a);
 		}
 		
-		glClear(GL_COLOR_BUFFER_BIT);
-		
+		glClear ( cbm );
+	}
+	
+	void Window::swap() {
 		SDL_GL_SwapWindow(_window);
 	}
 	
