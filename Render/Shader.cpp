@@ -18,23 +18,36 @@
 namespace JSLib {
 namespace Render {
 	
-#pragma predefined shaders
+#pragma mark predefined shaders
 	
-	struct {
-		const char *vsh =
-		"#version 330 core\n"
-		"layout ( location = 0 ) in vec3 position;\n"
-		"void main() {\n"
-		"\tgl_Position = vec4 ( position, 1.0 );\n"
-		"}\n";
+	struct shader_t {
+		const char *vsh = nullptr;
+		const char *fsh = nullptr;
+		const char *gsh = nullptr;
 		
-		const char *fsh =
-		"#version 330 core\n"
-		"layout ( location = 0 ) out vec4 finalColor;\n"
-		"void main() {\n"
-		"\tfinalColor = vec4 ( 1.0, 1.0, 1.0, 1.0 );\n"
-		"}\n";
-	} simple;
+		shader_t ( const char *v, const char *f, const char *g = nullptr ):
+		vsh ( v ),
+		fsh ( f ),
+		gsh ( g ) {}
+	};
+	
+	shader_t simple {
+		GLSL(
+			 layout (location = 0 ) in vec3 position;
+			 
+			 void main() {
+				 gl_Position = vec4 ( position, 1.0 );
+			 }
+		),
+		
+		GLSL(
+			layout ( location = 0 ) out vec4 finalColor;
+			 
+			 void main() {
+				 finalColor = vec4 ( 1.0, 1.0, 1.0, 1.0 );
+			 }
+		)
+	};
 	
 #pragma mark Globally private stuff
 	

@@ -9,6 +9,11 @@
 #ifndef __JSLIB_RENDER_SHADER_HPP
 #define __JSLIB_RENDER_SHADER_HPP
 
+/****************************
+ * Makro by https://open.gl *
+ ****************************/
+#define GLSL(src) "#version 330 core\n" #src
+
 #include "../JSLib_Export.hpp"
 
 #include "../JSLib_OpenGL.hpp"
