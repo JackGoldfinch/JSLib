@@ -7,8 +7,8 @@
 //
 
 #pragma once
-#ifndef AUDIO_AUDIO_HPP_
-#define AUDIO_AUDIO_HPP_
+#ifndef __JSLIB_AUDIO_AUDIO_HPP
+#define __JSLIB_AUDIO_AUDIO_HPP
 
 #include "../JSLib_Export.hpp"
 
@@ -39,4 +39,4 @@ namespace Audio {
 
 } /* namespace JSLib */
 
-#endif /* AUDIO_AUDIO_HPP_ */
+#endif // #ifndef __JSLIB_AUDIO_AUDIO_HPP
