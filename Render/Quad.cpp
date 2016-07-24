@@ -25,10 +25,10 @@ namespace Render {
 		glGenBuffers ( 1, &_vbo );
 		glBindBuffer (GL_ARRAY_BUFFER, _vbo );
 		
-		glBufferData ( GL_ARRAY_BUFFER, 4 * sizeof ( glm::vec3 ), _data, GL_STATIC_DRAW );
+		glBufferData ( GL_ARRAY_BUFFER, 4 * sizeof ( glm::vec2 ), _data, GL_STATIC_DRAW );
 		
 		glEnableVertexAttribArray ( 0 );
-		glVertexAttribPointer ( 0, 3, GL_FLOAT, GL_FALSE, sizeof ( glm::vec3 ), ( void* ) offsetof(glm::vec3, x) );
+		glVertexAttribPointer ( 0, 2, GL_FLOAT, GL_FALSE, sizeof ( glm::vec2 ), ( void* ) offsetof(glm::vec2, x) );
 	}
 	
 	Quad::~Quad() {
