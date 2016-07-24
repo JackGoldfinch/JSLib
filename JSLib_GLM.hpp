@@ -15,7 +15,15 @@
 
 #include <iostream>
 
+#ifdef __JSLIB_GLM_NO_FWD
+
 #include <glm/fwd.hpp>
+
+#else
+
+#include <glm/glm.hpp>
+
+#endif
 
 namespace glm {
 	

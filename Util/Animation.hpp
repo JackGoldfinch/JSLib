@@ -10,6 +10,8 @@
 #ifndef __JSLIB_ANIMATION_HPP
 #define __JSLIB_ANIMATION_HPP
 
+#include "../JSLib_Export.hpp"
+
 #include <glbinding/gl/types.h>
 using namespace gl;
 
@@ -22,10 +24,7 @@ using namespace gl;
 
 #include <glm/glm.hpp>
 
-#include <boost/mpl/vector.hpp>
 #include <boost/mpl/contains.hpp>
-
-typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4> vectors;
 
 namespace JSLib {
 	
@@ -40,7 +39,7 @@ namespace Util {
 		@discussion
 	 */
 	
-	class IAnimatable {
+	class JSLIB_EXPORT IAnimatable {
 	protected:
 		static std::set<IAnimatable*> _animatables;
 		static std::set<IAnimatable*> _finishedAnimatables;
@@ -70,7 +69,7 @@ namespace Util {
 	};
 	
 	template <typename T>
-	class Animatable : public IAnimatable {
+	class JSLIB_EXPORT Animatable : public IAnimatable {
 		typedef T ValueType;
 		
 	protected:
