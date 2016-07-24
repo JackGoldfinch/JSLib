@@ -24,6 +24,7 @@
 		8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE55E781CDC8E1A00321D58 /* JSLib.cpp */; };
 		8FE8998F1D06B5E500680BFB /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE8998D1D06B5E500680BFB /* System.cpp */; };
 		8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE899901D0AE65E00680BFB /* Animation.cpp */; };
+		8FEF72251D44BD87009E5E83 /* OpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF72241D44BD87009E5E83 /* OpenGL.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		8FE8998E1D06B5E500680BFB /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		8FE899901D0AE65E00680BFB /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		8FE899911D0AE65E00680BFB /* Animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Animation.hpp; sourceTree = "<group>"; };
+		8FEF72231D44BBA8009E5E83 /* OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGL.hpp; sourceTree = "<group>"; };
+		8FEF72241D44BD87009E5E83 /* OpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGL.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 		8F9395291D2541CF0012DE5B /* Render */ = {
 			isa = PBXGroup;
 			children = (
+				8FEF72101D412D66009E5E83 /* OpenGL */,
 				8F18F0671D2CF94900C4EB2D /* Render.cpp */,
 				8F18F0681D2CF94900C4EB2D /* Render.hpp */,
 				8F9198B61D2F2AA700972524 /* IRenderable.cpp */,
@@ -172,6 +176,15 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
+		8FEF72101D412D66009E5E83 /* OpenGL */ = {
+			isa = PBXGroup;
+			children = (
+				8FEF72241D44BD87009E5E83 /* OpenGL.cpp */,
+				8FEF72231D44BBA8009E5E83 /* OpenGL.hpp */,
+			);
+			path = OpenGL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -252,6 +265,7 @@
 				8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */,
 				8F9198BE1D30575B00972524 /* Shader.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
+				8FEF72251D44BD87009E5E83 /* OpenGL.cpp in Sources */,
 				8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
 				8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */,
