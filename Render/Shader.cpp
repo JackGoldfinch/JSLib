@@ -20,23 +20,23 @@ namespace Render {
 	
 #pragma mark predefined shaders
 	
-	struct shader_t {
+	struct shader_c {
 		const char *vsh = nullptr;
 		const char *fsh = nullptr;
 		const char *gsh = nullptr;
 		
-		shader_t ( const char *v, const char *f, const char *g = nullptr ):
+		shader_c ( const char *v, const char *f, const char *g = nullptr ):
 		vsh ( v ),
 		fsh ( f ),
 		gsh ( g ) {}
 	};
 	
-	shader_t simple {
+	shader_c simple {
 		GLSL(
-			 layout (location = 0 ) in vec3 position;
+			 layout (location = 0 ) in vec2 _position;
 			 
 			 void main() {
-				 gl_Position = vec4 ( position, 1.0 );
+				 gl_Position = vec4 ( _position, 0.0, 1.0 );
 			 }
 		),
 		

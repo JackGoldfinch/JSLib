@@ -11,11 +11,11 @@
 namespace JSLib {
 namespace Render {
 	
-	const glm::vec3 Quad::_data[] = {
-		{ -0.5f,  0.5f, 0.0f },
-		{ -0.5f, -0.5f, 0.0f },
-		{  0.5f,  0.5f, 0.0f },
-		{  0.5f, -0.5f, 0.0f }
+	const glm::vec2 Quad::_data[] = {
+		{ -0.5f,  0.5f },
+		{ -0.5f, -0.5f },
+		{  0.5f,  0.5f },
+		{  0.5f, -0.5f }
 	};
 	
 	Quad::Quad() {

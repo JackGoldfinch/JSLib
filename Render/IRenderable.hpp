@@ -6,6 +6,7 @@
 //  Copyright © 2016 Johannes Stieglitz. All rights reserved.
 //
 
+#pragma once
 #ifndef __JSLIB_RENDER_IRENDERABLE_HPP
 #define __JSLIB_RENDER_IRENDERABLE_HPP
 

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Johannes Stieglitz. All rights reserved.
 //
 
+#pragma once
 #ifndef __JSLIB_RENDER_QUAD_HPP
 #define __JSLIB_RENDER_QUAD_HPP
 
@@ -20,7 +21,7 @@ namespace Render {
 	
 	class JSLIB_EXPORT Quad {
 	protected:
-		static const glm::vec3 _data[];
+		static const glm::vec2 _data[];
 		
 		GLuint _vao, _vbo;
 		
