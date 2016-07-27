@@ -64,6 +64,8 @@ namespace OpenGL {
 
 #include "Object.hpp"
 #include "IBindable.hpp"
+#include "VertexArray.hpp"
 #include "Buffer.hpp"
+#include "VertexBuffer.hpp"
 
 #endif // #ifndef __JSLIB_RENDER_OPENGL_OPENGL_HPP

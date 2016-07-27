@@ -11,6 +11,8 @@
 		8F18F0621D2A5AB200C4EB2D /* JSLib_GLM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F18F0611D2A5AB200C4EB2D /* JSLib_GLM.cpp */; };
 		8F9198C31D3086FB00972524 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198C21D3086FB00972524 /* Exception.cpp */; };
 		8F18F0691D2CF94900C4EB2D /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F18F0671D2CF94900C4EB2D /* Render.cpp */; };
+		8F3875281D45FBC000692B86 /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F3875261D45FBC000692B86 /* VertexBuffer.cpp */; };
+		8F38752B1D460E9300692B86 /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F3875291D460E9300692B86 /* VertexArray.cpp */; };
 		8F9198B81D2F2AA700972524 /* IRenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198B61D2F2AA700972524 /* IRenderable.cpp */; };
 		8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198B91D2FCD4C00972524 /* Quad.cpp */; };
 		8F9198BE1D30575B00972524 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F9198BC1D30575B00972524 /* Shader.cpp */; };
@@ -38,6 +40,10 @@
 		8F9198C21D3086FB00972524 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cpp; sourceTree = "<group>"; };
 		8F18F0671D2CF94900C4EB2D /* Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Render.cpp; sourceTree = "<group>"; };
 		8F18F0681D2CF94900C4EB2D /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
+		8F3875261D45FBC000692B86 /* VertexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBuffer.cpp; sourceTree = "<group>"; };
+		8F3875271D45FBC000692B86 /* VertexBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexBuffer.hpp; sourceTree = "<group>"; };
+		8F3875291D460E9300692B86 /* VertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArray.cpp; sourceTree = "<group>"; };
+		8F38752A1D460E9300692B86 /* VertexArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexArray.hpp; sourceTree = "<group>"; };
 		8F9198B61D2F2AA700972524 /* IRenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRenderable.cpp; sourceTree = "<group>"; };
 		8F9198B71D2F2AA700972524 /* IRenderable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IRenderable.hpp; sourceTree = "<group>"; };
 		8F9198B91D2FCD4C00972524 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
@@ -194,8 +200,12 @@
 				8FEF72271D451BEA009E5E83 /* Object.hpp */,
 				8FEF72291D452331009E5E83 /* IBindable.cpp */,
 				8FEF722A1D452331009E5E83 /* IBindable.hpp */,
+				8F3875291D460E9300692B86 /* VertexArray.cpp */,
+				8F38752A1D460E9300692B86 /* VertexArray.hpp */,
 				8FEF722C1D452495009E5E83 /* Buffer.cpp */,
 				8FEF722D1D452495009E5E83 /* Buffer.hpp */,
+				8F3875261D45FBC000692B86 /* VertexBuffer.cpp */,
+				8F3875271D45FBC000692B86 /* VertexBuffer.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -282,12 +292,14 @@
 				8F9198BE1D30575B00972524 /* Shader.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
 				8FEF72281D451BEA009E5E83 /* Object.cpp in Sources */,
+				8F3875281D45FBC000692B86 /* VertexBuffer.cpp in Sources */,
 				8FEF722B1D452331009E5E83 /* IBindable.cpp in Sources */,
 				8FEF72251D44BD87009E5E83 /* OpenGL.cpp in Sources */,
 				8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
 				8F125CF21D05F70900DDD355 /* StopWatch.cpp in Sources */,
 				8FBA43D11CE0ED8000A9E9F0 /* Worker.cpp in Sources */,
+				8F38752B1D460E9300692B86 /* VertexArray.cpp in Sources */,
 				8FCC0CF01CDCAFE200F78FEE /* Game.cpp in Sources */,
 				8FBA43CE1CE0A88100A9E9F0 /* Logger.cpp in Sources */,
 				8F18F0691D2CF94900C4EB2D /* Render.cpp in Sources */,
