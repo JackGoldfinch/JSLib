@@ -10,20 +10,9 @@
 #ifndef __JSLIB_RENDER_OPENGL_OPENGL_HPP
 #define __JSLIB_RENDER_OPENGL_OPENGL_HPP
 
-#if defined __JSLIB_OPENGL_3_3
+#include "../../JSLib_Export.hpp"
 
 #include <glbinding/gl33ext/gl.h>
-
-#elif defined __JSLIB_OPENGL_4_1
-
-#elif defined __JSLIB_OPENGL_4_5
-
-#else
-
-#pragma warning ("No OpenGL Version selected!")
-
-#endif // #ifdef __JSLIB_OPENGL_3_3
-
 using namespace gl;
 
 #include "../../JSLib_GLM.hpp"
@@ -34,9 +23,15 @@ using namespace gl;
 
 namespace JSLib {
 namespace Render {
+	
+	/**
+	 @warning	As the classes and methods in this namespace rely heavily on the OpenGL
+				API they are NOT threadsafe and should be used on the main thread ONLY.
+	 */
+	
 namespace OpenGL {
 	
-	struct Exception : public std::runtime_error {
+	struct JSLIB_EXPORT Exception : public std::runtime_error {
 		Exception() : std::runtime_error("Something bad happened within OpenGL.") {}
 		Exception ( const std::string text ) : std::runtime_error ( text.c_str() ) {}
 		
@@ -44,22 +39,31 @@ namespace OpenGL {
 	};
 	
 	template <typename T>
-	typename std::enable_if<boost::mpl::contains<glm::VectorTypes, T>::value, GLenum>::type glType() {
+	typename std::enable_if<boost::mpl::contains<glm::VectorTypes, T>::value, GLenum>::type JSLIB_EXPORT glType() {
 		GLenum value = GL_NONE;
 		
-		if ( boost::mpl::contains<glm::IntTypes, T>::value ) {
+		if ( boost::mpl::contains<glm::IntVectorTypes, T>::value ) {
 			value = GL_INT;
-		} else if ( boost::mpl::contains<glm::FloatTypes, T>::value ) {
+		} else if ( boost::mpl::contains<glm::FloatVectorTypes, T>::value ) {
 			value = GL_FLOAT;
-		} else if ( boost::mpl::contains<glm::DoubleTypes, T>::value ) {
+		} else if ( boost::mpl::contains<glm::DoubleVectorTypes, T>::value ) {
 			value = GL_DOUBLE;
 		}
 		
 		return value;
 	}
 	
+	template <typename T>
+	typename std::enable_if<boost::mpl::contains<glm::VectorTypes, T>::value, GLuint>::type JSLIB_EXPORT glComponentsCount() {
+		return ( sizeof ( T ) / sizeof ( typename T::value_type ) );
+	}
+	
 }
 }
 }
+
+#include "Object.hpp"
+#include "IBindable.hpp"
+#include "Buffer.hpp"
 
 #endif // #ifndef __JSLIB_RENDER_OPENGL_OPENGL_HPP

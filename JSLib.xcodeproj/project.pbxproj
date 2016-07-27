@@ -25,6 +25,9 @@
 		8FE8998F1D06B5E500680BFB /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE8998D1D06B5E500680BFB /* System.cpp */; };
 		8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE899901D0AE65E00680BFB /* Animation.cpp */; };
 		8FEF72251D44BD87009E5E83 /* OpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF72241D44BD87009E5E83 /* OpenGL.cpp */; };
+		8FEF72281D451BEA009E5E83 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF72261D451BEA009E5E83 /* Object.cpp */; };
+		8FEF722B1D452331009E5E83 /* IBindable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF72291D452331009E5E83 /* IBindable.cpp */; };
+		8FEF722E1D452495009E5E83 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF722C1D452495009E5E83 /* Buffer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +71,12 @@
 		8FE899911D0AE65E00680BFB /* Animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Animation.hpp; sourceTree = "<group>"; };
 		8FEF72231D44BBA8009E5E83 /* OpenGL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGL.hpp; sourceTree = "<group>"; };
 		8FEF72241D44BD87009E5E83 /* OpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGL.cpp; sourceTree = "<group>"; };
+		8FEF72261D451BEA009E5E83 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		8FEF72271D451BEA009E5E83 /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		8FEF72291D452331009E5E83 /* IBindable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IBindable.cpp; sourceTree = "<group>"; };
+		8FEF722A1D452331009E5E83 /* IBindable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IBindable.hpp; sourceTree = "<group>"; };
+		8FEF722C1D452495009E5E83 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
+		8FEF722D1D452495009E5E83 /* Buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Buffer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +190,12 @@
 			children = (
 				8FEF72241D44BD87009E5E83 /* OpenGL.cpp */,
 				8FEF72231D44BBA8009E5E83 /* OpenGL.hpp */,
+				8FEF72261D451BEA009E5E83 /* Object.cpp */,
+				8FEF72271D451BEA009E5E83 /* Object.hpp */,
+				8FEF72291D452331009E5E83 /* IBindable.cpp */,
+				8FEF722A1D452331009E5E83 /* IBindable.hpp */,
+				8FEF722C1D452495009E5E83 /* Buffer.cpp */,
+				8FEF722D1D452495009E5E83 /* Buffer.hpp */,
 			);
 			path = OpenGL;
 			sourceTree = "<group>";
@@ -259,12 +274,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE8998F1D06B5E500680BFB /* System.cpp in Sources */,
+				8FEF722E1D452495009E5E83 /* Buffer.cpp in Sources */,
 				8F9198C31D3086FB00972524 /* Exception.cpp in Sources */,
 				8F9198B81D2F2AA700972524 /* IRenderable.cpp in Sources */,
 				8FBD862B1D01FFB500C1F40C /* Audio.cpp in Sources */,
 				8FE899921D0AE65E00680BFB /* Animation.cpp in Sources */,
 				8F9198BE1D30575B00972524 /* Shader.cpp in Sources */,
 				8FE55E7B1CDC8E1A00321D58 /* JSLib.cpp in Sources */,
+				8FEF72281D451BEA009E5E83 /* Object.cpp in Sources */,
+				8FEF722B1D452331009E5E83 /* IBindable.cpp in Sources */,
 				8FEF72251D44BD87009E5E83 /* OpenGL.cpp in Sources */,
 				8F9198BB1D2FCD4C00972524 /* Quad.cpp in Sources */,
 				8FCC0CF61CDCB6D800F78FEE /* Window.cpp in Sources */,
