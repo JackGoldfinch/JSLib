@@ -12,7 +12,8 @@
 
 #include "../JSLib_Export.hpp"
 
-#include "../JSLib_OpenGL.hpp"
+//#include "../JSLib_OpenGL.hpp"
+#include "OpenGL/OpenGL.hpp"
 
 #include <glm/glm.hpp>
 
