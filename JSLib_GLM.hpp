@@ -23,7 +23,7 @@
 
 #include <glm/glm.hpp>
 
-#endif
+#endif // #ifndef __JSLIB_GLM_NO_FWD
 
 #include <boost/mpl/vector.hpp>
 
@@ -32,10 +32,10 @@ namespace glm {
 	typedef vec3 color3;
 	typedef vec4 color4;
 	
-	typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4> VectorTypes;
-	typedef boost::mpl::vector<glm::ivec2, glm::ivec3, glm::ivec4> IntTypes;
-	typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4> FloatTypes;
-	typedef boost::mpl::vector<glm::dvec2, glm::dvec3, glm::dvec4> DoubleTypes;
+	typedef boost::mpl::vector<glm::ivec2, glm::ivec3, glm::ivec4, glm::vec2, glm::vec3, glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4> VectorTypes;
+	typedef boost::mpl::vector<glm::ivec2, glm::ivec3, glm::ivec4> IntVectorTypes;
+	typedef boost::mpl::vector<glm::vec2, glm::vec3, glm::vec4> FloatVectorTypes;
+	typedef boost::mpl::vector<glm::dvec2, glm::dvec3, glm::dvec4> DoubleVectorTypes;
 	
 } // namespace glm
 
@@ -56,4 +56,4 @@ std::ostream &operator<< ( std::ostream &stream, const glm::dvec2 &v );
 std::ostream &operator<< ( std::ostream &stream, const glm::dvec3 &v );
 std::ostream &operator<< ( std::ostream &stream, const glm::dvec4 &v );
 
-#endif /* __JSLIB_GLM_HPP */
+#endif // __JSLIB_GLM_HPP

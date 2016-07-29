@@ -27,6 +27,7 @@
 #include "Util/Worker.hpp"
 #include "Util/Logger.hpp"
 
+#include "Render/Render.hpp"
 #include "Audio/Audio.hpp"
 
 #include "Window.hpp"
@@ -70,6 +71,8 @@ namespace JSLib {
 		
 		Window::Unique _window;
 		
+		RenderSystem *_renderSystem = nullptr;
+		
 		AudioSystem *_audioSystem = nullptr;
 
 		Game(Settings &settings);
@@ -77,7 +80,6 @@ namespace JSLib {
 		void loop();
 		
 		void poll();
-		void render();
 		
 	public:
 		static Util::Logger log;
