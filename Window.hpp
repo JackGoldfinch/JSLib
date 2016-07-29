@@ -19,16 +19,13 @@
 
 #include "JSLib_OpenGL.hpp"
 
-#pragma warning(once: 4251)
-#include <glbinding/Binding.h>
-#pragma warning(default: 4251)
-using namespace gl;
-
 #include <SDL2/SDL.h>
 
 #define JSLIB_GLM_NO_FWD
 
 #else
+
+#include <glbinding/gl33ext/bitfield.h>
 
 #include <SDL2/SDL_video.h>
 
@@ -37,22 +34,28 @@ using namespace gl;
 #include "JSLib_GLM.hpp"
 
 #include "Util/Animation.hpp"
-
 #include "Util/System.hpp"
 
+#include "Exception.hpp"
+
 namespace JSLib {
+	
+	/**
+		@brief This is the sole window that is created by the game.
+	 */
+	
 	class JSLIB_EXPORT Window : Util::System {
 	public:
-		struct SDLVideoInitFailedException : public std::runtime_error {
-			SDLVideoInitFailedException() : std::runtime_error("SDL system 'video' failed to initialise.") {}
+		struct SDLVideoInitFailedException : public Exception {
+			SDLVideoInitFailedException() : Exception("SDL Video Initialisation failed") {}
 		};
 		
-		struct WindowCreationFailedException : public std::runtime_error {
-			WindowCreationFailedException() : std::runtime_error("Window creation failed.") {}
+		struct WindowCreationFailedException : public Exception {
+			WindowCreationFailedException() : Exception("Window creation failed") {}
 		};
 		
-		struct OpenGLContextCreationFailedException : public std::runtime_error {
-			OpenGLContextCreationFailedException() : std::runtime_error("Creation of OpenGL context failed.") {}
+		struct OpenGLContextCreationFailedException : public Exception {
+			OpenGLContextCreationFailedException() : Exception("Creation of OpenGL context failed") {}
 		};
 		
 		struct Settings {
@@ -81,6 +84,7 @@ namespace JSLib {
 	public:
 		~Window();
 		
+		void clear ( ClearBufferMask cbm = GL_COLOR_BUFFER_BIT );
 		void swap();
 		
 		void show() const {

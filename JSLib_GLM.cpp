@@ -6,10 +6,9 @@
  */
 
 #define GLM_MESSAGES
-
+#define JSLIB_GLM_NO_FWD
 #include "JSLib_GLM.hpp"
 
-#include <glm/glm.hpp>
 
 // operator ( vecX * double )
 

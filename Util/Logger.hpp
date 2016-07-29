@@ -29,6 +29,10 @@ namespace pt = boost::posix_time;
 namespace JSLib {
 namespace Util {
 	
+	/**
+		@brief
+	 */
+	
 	class JSLIB_EXPORT Logger {
 	public:
 		typedef std::map<std::thread::id, std::stringstream> StringStreamMap;
@@ -52,6 +56,12 @@ namespace Util {
 	public:
 		Logger();
 		~Logger();
+		
+		/**
+			@brief Set path of logging file.
+			@discussion Create a file at the specified path to receive a copy of stdout.
+			@param file Path on local disk.
+		 */
 		
 		void setFile(const fs::path &file);
 		void closeFile();
