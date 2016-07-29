@@ -18,7 +18,7 @@ namespace JSLib {
 namespace Render {
 namespace OpenGL {
 	
-	
+	typedef Buffer<GL_ARRAY_BUFFER> VertexBuffer;
 	
 }
 }

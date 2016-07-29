@@ -18,27 +18,13 @@ namespace Render {
 		{  0.5f, -0.5f }
 	};
 	
-	Quad::Quad() {
-		glGenVertexArrays ( 1, &_vao );
-		glBindVertexArray ( _vao );
-		
-		glGenBuffers ( 1, &_vbo );
-		glBindBuffer (GL_ARRAY_BUFFER, _vbo );
-		
-		glBufferData ( GL_ARRAY_BUFFER, 4 * sizeof ( glm::vec2 ), _data, GL_STATIC_DRAW );
-		
-		glEnableVertexAttribArray ( 0 );
-		glVertexAttribPointer ( 0, 2, GL_FLOAT, GL_FALSE, sizeof ( glm::vec2 ), ( void* ) offsetof(glm::vec2, x) );
-	}
-	
-	Quad::~Quad() {
-		glDeleteBuffers ( 1, &_vbo );
-		
-		glDeleteVertexArrays ( 1, &_vao );
+	Quad::Quad():
+	_vbo ( _data, 4 * sizeof ( glm::vec2 ) ) {
+		_vao.vertexAttribute<glm::vec2>(); // index 0
 	}
 	
 	void Quad::render() {
-		glBindVertexArray ( _vao );
+		_vao.bind();
 		
 		glDrawArrays ( GL_TRIANGLE_STRIP, 0, 4 );
 	}

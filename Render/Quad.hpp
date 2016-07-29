@@ -24,11 +24,11 @@ namespace Render {
 	protected:
 		static const glm::vec2 _data[];
 		
-		GLuint _vao, _vbo;
+		OpenGL::VertexArray _vao;
+		OpenGL::VertexBuffer _vbo;
 		
 	public:
 		Quad();
-		~Quad();
 		
 		void render();
 	};
